@@ -1,0 +1,135 @@
+@use "../../styles/variables" as *;
+@use "../../styles/mixins" as *;
+
+.footer {
+  margin-top: auto;
+  background: var(--color-footer-bg);
+  color: var(--color-white);
+  border-radius: 20px 20px 0 0;
+  padding: 30px 30px 20px;
+
+  @include tablet-and-below {
+    padding: 24px 20px 20px;
+  }
+
+  @include mobile {
+    padding: 24px 16px 20px;
+  }
+}
+
+.inner {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 0 30px;
+
+  @include tablet-and-below {
+    padding: 0 16px;
+  }
+
+  @include mobile {
+    padding: 0;
+  }
+}
+
+.logoRow {
+  display: flex;
+  align-items: center;
+}
+
+.logoText {
+  font-size: var(--font-size-20);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: -0.02em;
+  color: var(--color-white);
+}
+
+.slogan {
+  font-size: var(--font-size-16);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-base);
+  margin-top: 20px;
+}
+
+.about {
+  font-size: var(--font-size-12);
+  color: var(--color-black-400);
+  line-height: var(--line-height-relaxed);
+  max-width: 1080px;
+}
+
+.divider {
+  height: 1px;
+  background: var(--color-divider);
+  margin-top: 20px;
+}
+
+.bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  margin-top: 16px;
+  color: var(--color-black-400);
+  font-size: var(--font-size-14);
+
+  @include mobile {
+    justify-content: flex-start;
+    flex-wrap: wrap;
+  }
+}
+
+.bottomLeft {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-grow: 1;
+
+  @include mobile {
+    flex-grow: 0;
+  }
+}
+
+.copyright {
+  color: var(--color-black-400);
+}
+
+.docsLink {
+  color: var(--color-black-400);
+
+  &:hover {
+    color: var(--color-white);
+  }
+}
+
+.socialCaption {
+  color: var(--color-black-400);
+
+  @include mobile {
+  order: 1;
+  flex-basis: 100%;  
+  }
+}
+
+.socials {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.socialBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--color-white);
+  transition: opacity 0.2s ease;
+
+  &:hover {
+    opacity: 0.85;
+  }
+}

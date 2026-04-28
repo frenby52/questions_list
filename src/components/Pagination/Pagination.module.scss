@@ -1,0 +1,63 @@
+@use "../../styles/variables" as *;
+
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 24px;
+}
+
+.list {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.arrow,
+.page {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--font-size-14);
+  transition: background-color 0.15s ease, color 0.15s ease, opacity 0.15s ease;
+}
+
+.arrow {
+  &:hover:not(:disabled) {
+    background: rgba(85, 51, 255, 0.08);
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.4;
+  }
+}
+
+.page {
+  min-width: 21px;
+  min-height: 25px;
+  color: var(--color-black-700);
+
+  &:hover {
+    color: var(--color-brand);
+  }
+}
+
+.pageActive {
+  background: var(--color-brand);
+  color: var(--color-white);
+
+  &:hover {
+    color: var(--color-white);
+  }
+}
+
+.dots {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 20px;
+  min-height: 25px;
+  color: var(--color-black-400);
+}

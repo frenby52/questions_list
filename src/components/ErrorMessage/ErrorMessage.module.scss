@@ -1,0 +1,23 @@
+.error {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+}
+
+.text {
+  margin-bottom: 50px;
+  font-size: var(--font-size-24);
+}
+
+.link {
+  font-size: var(--font-size-20);
+  color: var(--color-brand);
+  transition: color 0.3s ease;
+
+  &:hover {
+    color: var(--color-brand-active);
+    text-decoration: none;
+  }
+}

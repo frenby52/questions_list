@@ -1,0 +1,58 @@
+@use "../../styles/variables" as *;
+@use "../../styles/mixins" as *;
+
+.page {
+  width: 100%;
+}
+
+.content {
+  display: flex;
+  gap: 30px;
+  align-items: flex-start;
+
+  @include tablet-and-below {
+    gap: 0;
+  }
+}
+
+.desktopFilter {
+  position: sticky;
+  top: calc(var(--header-height) + 16px);
+  align-self: flex-start;
+
+  @include tablet-and-below {
+    display: none;
+  }
+}
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(25, 0, 62, 0.35);
+  z-index: var(--z-filter-overlay);
+  display: none;
+
+  @include tablet-and-below {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  @include mobile {
+    justify-content: stretch;
+  }
+}
+
+.overlayInner {
+  background: var(--color-white);
+  height: 100dvh;
+  max-width: 100%;
+  overflow-y: auto;
+  -ms-overflow-style: none; 
+  border-left: 1px solid var(--color-border);
+  @include hide-scrollbar;
+
+  @include mobile {
+    width: 100%;
+    border-left: none;
+  }
+}
