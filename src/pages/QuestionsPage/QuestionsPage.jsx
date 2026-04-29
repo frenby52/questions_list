@@ -2,15 +2,14 @@ import { useCallback, useEffect, useState, useRef, useMemo } from 'react';
 import classes from './QuestionsPage.module.scss';
 import QuestionList from '../../components/QuestionList/QuestionList.jsx';
 import Filter from '../../components/Filter/Filter.jsx';
-import { apiRequest, buildQueryParams, buildUrl, ARRAY_TYPE_PROPERTIES, PAGE_SIZE_DEFAULT } from '../../helpers/utils/api.js';
+import { apiRequest, buildQueryParams, buildUrl } from '../../helpers/utils/api.js';
 import { toggleInArray } from '../../helpers/utils/utils.js';
 import { useDebounce } from '../../helpers/hooks/useDebounce.js';
 import Loader from '../../components/Loader/Loader.jsx';
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage.jsx';
+import { SEARCH_DEBOUNCE_MS, ARRAY_TYPE_PROPERTIES, PAGE_SIZE_DEFAULT } from '../../constants/constants.js';
 
-const SEARCH_DEBOUNCE_MS = 1000;
-
-const INITIAL_FILTERS = {
+const initialFilters = {
   search: '',
   specializationId: null,
   skills: [],
@@ -19,16 +18,14 @@ const INITIAL_FILTERS = {
   status: 'all',
 };
 
-const INITIAL_DATA_STATE = { data: [], limit: PAGE_SIZE_DEFAULT, page: 1, total: 0 };
-
 function QuestionsPage() {
-  const [filters, setFilters] = useState(INITIAL_FILTERS);
+  const [filters, setFilters] = useState(initialFilters);
   const [page, setPage] = useState(1);
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-  const [questions, setQuestions] = useState({ ...INITIAL_DATA_STATE });
-  const [specializations, setSpecializations] = useState({ ...INITIAL_DATA_STATE });
-  const [skills, setSkills] = useState({ ...INITIAL_DATA_STATE });
+  const [questions, setQuestions] = useState({ data: [], total: 0 });
+  const [specializations, setSpecializations] = useState({ data: [], total: 0 });
+  const [skills, setSkills] = useState({ data: [], total: 0 });
   const [fetchError, setFetchError] = useState(null);
   const prevSpecializationId = useRef(null);
 
@@ -39,7 +36,7 @@ function QuestionsPage() {
     if (newValue === null) return;
 
     if (key === 'specializationId') {
-      setFilters({ ...INITIAL_FILTERS, [key]: newValue });
+      setFilters({ ...initialFilters, [key]: newValue });
     } else {
       setFilters((prevFilters) => {
         const actualValue = ARRAY_TYPE_PROPERTIES.includes(key)

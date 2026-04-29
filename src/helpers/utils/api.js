@@ -1,7 +1,5 @@
 const API_URL = import.meta.env.VITE_API_URL;
-
-export const PAGE_SIZE_DEFAULT = 10;
-export const ARRAY_TYPE_PROPERTIES = ['skills', 'complexity', 'rate'];
+import { PAGE_SIZE_DEFAULT, ARRAY_TYPE_PROPERTIES } from '../../constants/constants.js';
 
 export async function apiRequest(url) {
   const response = await fetch(`${API_URL}${url}`);

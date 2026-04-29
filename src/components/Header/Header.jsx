@@ -3,12 +3,7 @@ import classes from './Header.module.scss';
 import logoIcon from '../../assets/icons/logo.svg';
 import chevronDownIcon from '../../assets/icons/chevron-down.svg';
 import menuIcon from '../../assets/icons/menu.svg';
-
-const NAV_LINKS = [
-  { href: '#questions', label: 'База вопросов' },
-  { href: '#trainer', label: 'Тренажёр' },
-  { href: '#materials', label: 'Материалы' },
-];
+import { NAV_LINKS } from '../../constants/constants.js';
 
 function Header() {
   const [isPrepOpen, setIsPrepOpen] = useState(false);

@@ -5,24 +5,7 @@ import FilterGroup from '../FilterGroup/FilterGroup.jsx';
 import FilterChip from '../FilterChip/FilterChip.jsx';
 import closeIcon from '../../assets/icons/close.svg';
 import { useMemo } from 'react';
-
-const COMPLEXITY_OPTIONS = [
-  { value: [1, 2, 3], label: '1–3' },
-  { value: [4, 5, 6], label: '4–6' },
-  { value: [7, 8], label: '7–8' },
-  { value: [9, 10], label: '9–10' },
-];
-
-const RATE_OPTIONS = [1, 2, 3, 4, 5];
-
-const STATUS_OPTIONS = [
-  { value: 'studied', label: 'Изученные' },
-  { value: 'not_studied', label: 'Не изученные' },
-  { value: 'all', label: 'Все' },
-];
-
-const COLLAPSED_SPECS_COUNT = 5;
-const COLLAPSED_SKILLS_COUNT = 8;
+import { COMPLEXITY_OPTIONS, RATE_OPTIONS, STATUS_OPTIONS, COLLAPSED_SPECS_COUNT, COLLAPSED_SKILLS_COUNT } from '../../constants/constants.js';
 
 function Filter({
   specializations,

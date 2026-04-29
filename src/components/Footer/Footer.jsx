@@ -1,9 +1,5 @@
 import classes from './Footer.module.scss';
-import figmaIcon from '../../assets/icons/figma.svg';
-import telegramIcon from '../../assets/icons/telegram.svg';
-import youtubeIcon from '../../assets/icons/youtube.svg';
-import tiktokIcon from '../../assets/icons/tiktok.svg';
-import githubIcon from '../../assets/icons/github.svg';
+import { SOCIALS_ITEMS } from '../../constants/constants.js';
 
 function Footer() {
   return (
@@ -30,31 +26,13 @@ function Footer() {
           </div>
           <span className={classes.socialCaption}>Ищите нас и в других соцсетях @yeahub_it</span>
           <ul className={classes.socials}>
-              <li>
-                <a className={classes.socialBtn} href="#figma" aria-label="Figma">
-                  <img src={figmaIcon} alt="" width={14} height={14} />
+            {SOCIALS_ITEMS.map((item) => (
+              <li key={item.id}>
+                <a className={classes.socialBtn} href={`#${item.title}`} aria-label={item.title}>
+                  <img src={item.icon} alt={item.title} width={18} height={18} />
                 </a>
               </li>
-              <li>
-                <a className={classes.socialBtn} href="#telegram" aria-label="Telegram">
-                  <img src={telegramIcon} alt="" width={16} height={16} />
-                </a>
-              </li>
-              <li>
-                <a className={classes.socialBtn} href="#youtube" aria-label="YouTube">
-                  <img src={youtubeIcon} alt="" width={16} height={16} />
-                </a>
-              </li>
-              <li>
-                <a className={classes.socialBtn} href="#tiktok" aria-label="TikTok">
-                  <img src={tiktokIcon} alt="" width={16} height={16} />
-                </a>
-              </li>
-              <li>
-                <a className={classes.socialBtn} href="#github" aria-label="GitHub">
-                  <img src={githubIcon} alt="" width={18} height={18} />
-                </a>
-              </li>
+            ))}
           </ul>
         </div>
       </div>

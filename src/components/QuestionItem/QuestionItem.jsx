@@ -2,18 +2,8 @@ import { useEffect, useRef, useState } from 'react';
 import classes from './QuestionItem.module.scss';
 import chevronDownIcon from '../../assets/icons/chevron-down-brand.svg';
 import kebabIcon from '../../assets/icons/kebab.svg';
-import detailsIcon from '../../assets/icons/details.svg';
-import studiedIcon from '../../assets/icons/studied.svg';
-import againIcon from '../../assets/icons/again.svg';
-import favoriteIcon from '../../assets/icons/favorite.svg';
 import ContentRenderer from '../ContentRenderer/ContentRenderer.jsx';
-
-const MENU_ITEMS = [
-  { id: 'details', label: 'Подробнее', iconSrc: detailsIcon },
-  { id: 'studied', label: 'Изучено', iconSrc: studiedIcon },
-  { id: 'again', label: 'Заново', iconSrc: againIcon, disabled: true },
-  { id: 'favorite', label: 'Избранное', iconSrc: favoriteIcon },
-];
+import { MENU_ITEMS } from '../../constants/constants.js';
 
 function QuestionItem({ question, defaultOpen = false }) {
   const [isOpen, setIsOpen] = useState(defaultOpen);
