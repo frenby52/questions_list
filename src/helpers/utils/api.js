@@ -1,4 +1,5 @@
-const API_URL = import.meta.env.VITE_API_URL;
+// const API_URL = import.meta.env.VITE_API_URL;
+const API_URL = 'https://api.yeatwork.ru';
 export const PAGE_SIZE_DEFAULT = 10;
 export const ARRAY_TYPE_PROPERTIES = ['skills', 'complexity', 'rate'];
 
