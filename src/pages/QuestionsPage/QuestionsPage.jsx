@@ -1,13 +1,13 @@
-import { useCallback, useEffect, useState, useRef, useMemo } from 'react';
+import { useEffect, useState, useRef, useMemo } from 'react';
 import classes from './QuestionsPage.module.scss';
 import QuestionList from '../../components/QuestionList/QuestionList.jsx';
 import Filter from '../../components/Filter/Filter.jsx';
 import { apiRequest, buildQueryParams, buildUrl } from '../../helpers/utils/api.js';
-import { toggleInArray } from '../../helpers/utils/utils.js';
 import { useDebounce } from '../../helpers/hooks/useDebounce.js';
 import Loader from '../../components/Loader/Loader.jsx';
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage.jsx';
-import { SEARCH_DEBOUNCE_MS, ARRAY_TYPE_PROPERTIES, PAGE_SIZE_DEFAULT } from '../../constants/constants.js';
+import { SEARCH_DEBOUNCE_MS, PAGE_SIZE_DEFAULT } from '../../constants/constants.js';
+import { useQuestionsFilters } from '../../helpers/hooks/useQuestionsFilters.js';
 
 const initialFilters = {
   search: '',
@@ -19,8 +19,6 @@ const initialFilters = {
 };
 
 function QuestionsPage() {
-  const [filters, setFilters] = useState(initialFilters);
-  const [page, setPage] = useState(1);
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [questions, setQuestions] = useState({ data: [], total: 0 });
@@ -29,26 +27,9 @@ function QuestionsPage() {
   const [fetchError, setFetchError] = useState(null);
   const prevSpecializationId = useRef(null);
 
+  const [filters, setFilters, page, setPage, handleFiltersChange] = useQuestionsFilters(initialFilters);
   const { search, specializationId, skills: skillIds, complexity, rate, status } = filters;
   const debouncedSearch = useDebounce(search, SEARCH_DEBOUNCE_MS);
-
-  const handleFiltersChange = useCallback((key, newValue) => {
-    if (newValue === null) return;
-
-    if (key === 'specializationId') {
-      setFilters({ ...initialFilters, [key]: newValue });
-    } else {
-      setFilters((prevFilters) => {
-        const actualValue = ARRAY_TYPE_PROPERTIES.includes(key)
-          ? toggleInArray(prevFilters[key], newValue)
-          : newValue;
-
-        return { ...prevFilters, [key]: actualValue };
-      });
-
-    }
-    setPage(1);
-  }, []);
 
   const handlePageChange = (nextPage) => setPage(nextPage);
   const handleOpenFilter = () => setIsFilterOpen(true); 
