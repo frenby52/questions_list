@@ -13,7 +13,7 @@ export const useQuestionsData = (filters, page, debouncedSearch, onInitialLoad) 
   const { specializationId, skills: skillIds, complexity, rate, status } = filters;
 
   useEffect(() => {
-    const fecrhData = async () => {
+    const fetchData = async () => {
       try {
         setIsLoading(true);
         if (specializationId === null) {
@@ -62,7 +62,7 @@ export const useQuestionsData = (filters, page, debouncedSearch, onInitialLoad) 
         setIsLoading(false);
       } 
     };
-    fecrhData();
+    fetchData();
   }, [debouncedSearch, specializationId, skillIds, complexity, rate, status, page, onInitialLoad]);
 
   return { questions: data.questions, specializations: data.specializations, skills: data.skills, isLoading, fetchError };
