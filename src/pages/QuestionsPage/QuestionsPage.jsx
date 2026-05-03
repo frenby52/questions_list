@@ -49,7 +49,8 @@ function QuestionsPage() {
   const currentSpec = useMemo(() => specializations.data?.find((specialization) => specialization.id === filters.specializationId), [specializations.data, filters.specializationId]);
   const currentSpecTitle = currentSpec ? `Вопросы ${currentSpec.title}` : '';
 
-  if (isLoading && specializations.data.length === 0) {
+  const isInitialBoot = specializations.data.length === 0 || questions.total === 0;
+  if (isLoading && isInitialBoot) {
     return <Loader />;
   }
 
