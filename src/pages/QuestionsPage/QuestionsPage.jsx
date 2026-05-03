@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback, useMemo } from 'react';
+import {useCallback, useMemo } from 'react';
 import classes from './QuestionsPage.module.scss';
 import QuestionList from '../../components/QuestionList/QuestionList.jsx';
 import Filter from '../../components/Filter/Filter.jsx';
@@ -8,6 +8,7 @@ import ErrorMessage from '../../components/ErrorMessage/ErrorMessage.jsx';
 import { SEARCH_DEBOUNCE_MS, PAGE_SIZE_DEFAULT } from '../../constants/constants.js';
 import { useFilters } from '../../helpers/hooks/useFilters.js';
 import { useQuestionsData } from '../../helpers/hooks/useQuestionsData.js';
+import { useBgScrollBlock } from '../../helpers/hooks/useBgScrollBlock.js';
 
 const initialFilters = {
   search: '',
@@ -19,7 +20,7 @@ const initialFilters = {
 };
 
 function QuestionsPage() {
-  const [isFilterOpen, setIsFilterOpen] = useState(false);
+  const [isFilterOpen, setIsFilterOpen] = useBgScrollBlock();
   const [filters, setFilters, page, setPage, handleFiltersChange] = useFilters(initialFilters);
   const debouncedSearch = useDebounce(filters.search, SEARCH_DEBOUNCE_MS);
 
@@ -34,17 +35,6 @@ function QuestionsPage() {
   const handleCloseFilter = () => setIsFilterOpen(false);
 
   const totalPages = Math.max(1, Math.ceil(questions.total / PAGE_SIZE_DEFAULT));
-
-  useEffect(() => {
-    if (isFilterOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
-    }
-    return () => {
-      document.body.style.overflow = '';
-    };
-  }, [isFilterOpen]);
 
   const currentSpec = useMemo(() => specializations.data?.find((specialization) => specialization.id === filters.specializationId), [specializations.data, filters.specializationId]);
   const currentSpecTitle = currentSpec ? `Вопросы ${currentSpec.title}` : '';
