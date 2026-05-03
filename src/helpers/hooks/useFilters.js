@@ -1,8 +1,8 @@
 import { useState, useCallback } from 'react';
 import {ARRAY_TYPE_PROPERTIES} from '../../constants/constants.js';
-import { toggleInArray } from '../../helpers/utils/utils.js';
+import { toggleInArray } from '../utils/utils.js';
 
-export const useQuestionsFilters = (initialFilters) => {
+export const useFilters = (initialFilters) => {
     const [filters, setFilters] = useState(initialFilters);
     const [page, setPage] = useState(1);
 
