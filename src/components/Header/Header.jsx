@@ -1,41 +1,13 @@
-import { useEffect, useRef, useState } from 'react';
 import classes from './Header.module.scss';
 import logoIcon from '../../assets/icons/logo.svg';
 import chevronDownIcon from '../../assets/icons/chevron-down.svg';
 import menuIcon from '../../assets/icons/menu.svg';
 import { NAV_LINKS } from '../../constants/constants.js';
+import { useMenu } from '../../helpers/hooks/useMenu.js';
 
 function Header() {
-  const [isPrepOpen, setIsPrepOpen] = useState(false);
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const prepRef = useRef(null);
-  const burgerRef = useRef(null);
-
-  useEffect(() => {
-    if (!isPrepOpen && !isMenuOpen) return;
-
-    const handleMouseDown = (event) => {
-      if (prepRef.current && !prepRef.current.contains(event.target)) {
-        setIsPrepOpen(false);
-      }
-      if (burgerRef.current && !burgerRef.current.contains(event.target)) {
-        setIsMenuOpen(false);
-      }
-    };
-    const handleKeyDown = (event) => {
-      if (event.key !== 'Escape') return; 
-        event.target.blur();
-        setIsPrepOpen(false);
-        setIsMenuOpen(false);      
-    };
-
-    document.addEventListener('mousedown', handleMouseDown);
-    document.addEventListener('keydown', handleKeyDown);
-    return () => {
-      document.removeEventListener('mousedown', handleMouseDown);
-      document.removeEventListener('keydown', handleKeyDown);
-    };
-  }, [isPrepOpen, isMenuOpen]);
+  const [isPrepOpen, setIsPrepOpen, prepRef] = useMenu();
+  const [isMenuOpen, setIsMenuOpen, burgerRef] = useMenu();
 
   const prepChevronClass = isPrepOpen
     ? `${classes.chevron} ${classes.chevronOpen}`

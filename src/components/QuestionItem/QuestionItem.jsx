@@ -1,52 +1,28 @@
-import { useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 import classes from './QuestionItem.module.scss';
 import chevronDownIcon from '../../assets/icons/chevron-down-brand.svg';
 import kebabIcon from '../../assets/icons/kebab.svg';
 import ContentRenderer from '../ContentRenderer/ContentRenderer.jsx';
 import { MENU_ITEMS } from '../../constants/constants.js';
+import { useMenu } from '../../helpers/hooks/useMenu.js';
 
 function QuestionItem({ question, defaultOpen = false }) {
-  const [isOpen, setIsOpen] = useState(defaultOpen);
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const menuRef = useRef(null);
+  const [isQuestionOpen, setIsQuestionOpen] = useState(defaultOpen);
+  const [isMenuOpen, setIsMenuOpen, menuRef] = useMenu();
 
-  const toggleIconClass = isOpen
+  const toggleIconClass = isQuestionOpen
     ? `${classes.toggleIcon} ${classes.toggleIconOpen}`
     : classes.toggleIcon;
 
-  useEffect(() => {
-    if (!isMenuOpen) return;
-
-    const handleMouseDown = (event) => {
-      if (menuRef.current && !menuRef.current.contains(event.target)) {
-        setIsMenuOpen(false);
-      }
-    };
-    const handleKeyDown = (event) => {
-      if (event.key !== 'Escape') return;
-
-      event.target.blur();
-      setIsMenuOpen(false);
-    };
-
-    document.addEventListener('mousedown', handleMouseDown);
-    document.addEventListener('keydown', handleKeyDown);
-    return () => {
-      document.removeEventListener('mousedown', handleMouseDown);
-      document.removeEventListener('keydown', handleKeyDown);
-    };
-  }, [isMenuOpen]);
-
-  const handleMenuItemClick = (itemId) => {
+  const handleMenuItemClick = () => {
     setIsMenuOpen(false);
-    console.log('was clicked ', itemId, question);
   };
 
   return (
     <article className={classes.item}>
       <header
         className={classes.header}
-        onClick={() => setIsOpen((prev) => !prev)}
+        onClick={() => setIsQuestionOpen((prev) => !prev)}
       >
         <span className={classes.bullet} />
         <h3 className={classes.title}>{question.title}</h3>
@@ -64,7 +40,7 @@ function QuestionItem({ question, defaultOpen = false }) {
         </button>
       </header>
 
-      {isOpen && (
+      {isQuestionOpen && (
         <div className={classes.body}>
           <div className={classes.metaRow}>
             <div className={classes.meta}>
