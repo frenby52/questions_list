@@ -2,7 +2,16 @@ import { useState, useCallback } from 'react';
 import {ARRAY_TYPE_PROPERTIES} from '../../constants/constants.js';
 import { toggleInArray } from '../utils/utils.js';
 
-export const useFilters = (initialFilters) => {
+const initialFilters = {
+  search: '',
+  specializationId: null,
+  skills: [],
+  complexity: [],
+  rate: [],
+  status: 'all',
+};
+
+export const useFilters = () => {
     const [filters, setFilters] = useState(initialFilters);
     const [page, setPage] = useState(1);
 
@@ -21,8 +30,12 @@ export const useFilters = (initialFilters) => {
 
 
         setPage(1);
-    }, [initialFilters]);
+    }, []);
 
-    return [filters, setFilters, page, setPage, handleFiltersChange];
+    const handlePageChange = useCallback((nextPage) => {
+      setPage(nextPage);
+    }, []);
+
+    return [filters, setFilters, page, handlePageChange, handleFiltersChange];
 
 };

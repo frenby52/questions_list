@@ -8,20 +8,11 @@ import ErrorMessage from '../../components/ErrorMessage/ErrorMessage.jsx';
 import { SEARCH_DEBOUNCE_MS, PAGE_SIZE_DEFAULT } from '../../constants/constants.js';
 import { useFilters } from '../../helpers/hooks/useFilters.js';
 import { useQuestionsData } from '../../helpers/hooks/useQuestionsData.js';
-import { useBgScrollBlock } from '../../helpers/hooks/useBgScrollBlock.js';
-
-const initialFilters = {
-  search: '',
-  specializationId: null,
-  skills: [],
-  complexity: [],
-  rate: [],
-  status: 'all',
-};
+import { useModalState } from '../../helpers/hooks/useModalState.js';
 
 function QuestionsPage() {
-  const [isFilterOpen, setIsFilterOpen] = useBgScrollBlock();
-  const [filters, setFilters, page, setPage, handleFiltersChange] = useFilters(initialFilters);
+  const [isFilterOpen, handleOpenFilter, handleCloseFilter] = useModalState();
+  const [filters, setFilters, page, handlePageChange, handleFiltersChange] = useFilters();
   const debouncedSearch = useDebounce(filters.search, SEARCH_DEBOUNCE_MS);
 
   const handleInitialLoad = useCallback((id) => {
@@ -29,10 +20,6 @@ function QuestionsPage() {
   }, [setFilters]);
 
   const { questions, specializations, skills, isLoading, fetchError } = useQuestionsData(filters, page, debouncedSearch, handleInitialLoad);
-
-  const handlePageChange = (nextPage) => setPage(nextPage);
-  const handleOpenFilter = () => setIsFilterOpen(true); 
-  const handleCloseFilter = () => setIsFilterOpen(false);
 
   const totalPages = Math.max(1, Math.ceil(questions.total / PAGE_SIZE_DEFAULT));
 
