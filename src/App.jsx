@@ -1,11 +1,9 @@
-import Layout from './components/Layout/Layout.jsx';
-import QuestionsPage from './pages/QuestionsPage/QuestionsPage.jsx';
+import { router } from './router/router.jsx';
+import { RouterProvider } from 'react-router-dom';
 
 function App() {
   return (
-    <Layout>
-      <QuestionsPage />
-    </Layout>
+    <RouterProvider router={router} />
   );
 }
 

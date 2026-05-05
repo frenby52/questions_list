@@ -32,7 +32,7 @@ function QuestionsPage() {
   }
 
   if (fetchError) {
-    return <ErrorMessage error={fetchError}>Click to try again</ErrorMessage>;
+    return <ErrorMessage error={fetchError?.message}>Click to try again</ErrorMessage>;
   }
 
   return (
