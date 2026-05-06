@@ -1,6 +1,12 @@
 const API_URL = import.meta.env.VITE_API_URL;
 import { PAGE_SIZE_DEFAULT, ARRAY_TYPE_PROPERTIES } from '../../constants/constants.js';
 
+export const API_ENDPOINTS = {
+  QUESTIONS: `/questions/public-questions`,
+  SPECIALIZATIONS: `/specializations`,
+  SKILLS: `/skills`,
+};
+
 export async function apiRequest(url) {
   const response = await fetch(`${API_URL}${url}`);
   if (!response.ok) {
@@ -36,7 +42,6 @@ export function buildQueryParams(filters, page) {
 }
 
 export function buildUrl(params) {
-  const baseUrl = `/questions/public-questions`;
   const paramsUrl = new URLSearchParams({
     page: params.page,
     limit: params.limit || PAGE_SIZE_DEFAULT
@@ -60,5 +65,5 @@ export function buildUrl(params) {
     paramsUrl.set('status', params.status);
   }
 
-  return `${baseUrl}?${paramsUrl.toString()}`;
+  return `${API_URL}${API_ENDPOINTS.QUESTIONS}?${paramsUrl.toString()}`;
 }

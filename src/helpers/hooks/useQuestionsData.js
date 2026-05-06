@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { apiRequest, buildQueryParams, buildUrl } from '../../helpers/utils/api.js';
+import { API_ENDPOINTS } from '../../helpers/utils/api.js';
 
 export const useQuestionsData = (filters, page, debouncedSearch, onInitialLoad) => {
   const [data, setData] = useState({
@@ -17,8 +18,8 @@ export const useQuestionsData = (filters, page, debouncedSearch, onInitialLoad) 
       try {
         setIsLoading(true);
         if (specializationId === null) {
-          const { total: totalSpecializations } = await apiRequest('/specializations');
-          const specializations = await apiRequest(`/specializations?limit=${totalSpecializations}`);
+          const { total: totalSpecializations } = await apiRequest(API_ENDPOINTS.SPECIALIZATIONS);
+          const specializations = await apiRequest(`${API_ENDPOINTS.SPECIALIZATIONS}?limit=${totalSpecializations}`);
           setData((prev) => ({ ...prev, specializations }));
 
           if (!specializationId && specializations.data.length > 0) {
@@ -46,8 +47,8 @@ export const useQuestionsData = (filters, page, debouncedSearch, onInitialLoad) 
 
         if (prevSpecializationId.current !== specializationId) {
           const [newQuestions, newSkills] = await Promise.all([
-            apiRequest(`/questions/public-questions?specializationId=${specializationId}`),
-            apiRequest(`/skills?specializations=${specializationId}`),
+            apiRequest(`${API_ENDPOINTS.QUESTIONS}?specializationId=${specializationId}`),
+            apiRequest(`${API_ENDPOINTS.SKILLS}?specializations=${specializationId}`),
           ]);
           setData(prev => ({ ...prev, questions: newQuestions, skills: newSkills }));
           prevSpecializationId.current = specializationId;

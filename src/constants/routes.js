@@ -1,5 +1,7 @@
-export const ROUTES = {
+  export const ROUTES = {
     INDEX: '/',
-    QUESTION: '/:id',
+    QUESTIONS: '/questions',
+    QUESTION: '/questions/:id',
+    getQuestion: (id) => `/questions/${id}`,
     NOT_FOUND: '*',
   };
