@@ -5,16 +5,21 @@ import kebabIcon from '../../assets/icons/kebab.svg';
 import ContentRenderer from '../ContentRenderer/ContentRenderer.jsx';
 import { MENU_ITEMS } from '../../constants/constants.js';
 import { useMenu } from '../../helpers/hooks/useMenu.js';
+import { ROUTES } from '../../constants/routes.js';
+import { useNavigate } from 'react-router-dom';
 
 function QuestionItem({ question, defaultOpen = false }) {
   const [isQuestionOpen, setIsQuestionOpen] = useState(defaultOpen);
   const [isMenuOpen, setIsMenuOpen, menuRef] = useMenu();
-
+  const navigate = useNavigate();
   const toggleIconClass = isQuestionOpen
     ? `${classes.toggleIcon} ${classes.toggleIconOpen}`
     : classes.toggleIcon;
 
-  const handleMenuItemClick = () => {
+  const handleMenuItemClick = (id) => {
+    if (id === 'details') {
+      navigate(ROUTES.getQuestion(question.id));
+    }
     setIsMenuOpen(false);
   };
 
