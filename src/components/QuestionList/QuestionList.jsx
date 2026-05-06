@@ -1,16 +1,15 @@
 import classes from './QuestionList.module.scss';
 import QuestionItem from '../QuestionItem/QuestionItem.jsx';
-import Pagination from '../Pagination/Pagination.jsx';
 import QuestionListHeader from '../QuestionListHeader/QuestionListHeader.jsx';
 import { SkeletonQuestions } from '../SkeletonQuestions/SkeletonQuestions.jsx';
 
-function QuestionList({ title, questions, isLoading, page, totalPages, onPageChange, onOpenFilter }) {
+function QuestionList({ title, questions, isLoading, onOpenFilter }) {
   return (
     <>
       {isLoading ? (
         <SkeletonQuestions />
       ) : (
-        <section className={classes.list}>
+        <section>
           <QuestionListHeader title={title} onOpenFilter={onOpenFilter} />
 
           {questions.length === 0 && !isLoading ? (
@@ -24,7 +23,6 @@ function QuestionList({ title, questions, isLoading, page, totalPages, onPageCha
               ))}
             </ul>
           )}
-          <Pagination page={page} totalPages={totalPages} onChange={onPageChange} />
         </section>
       )}
     </>

@@ -65,5 +65,5 @@ export function buildUrl(params) {
     paramsUrl.set('status', params.status);
   }
 
-  return `${API_URL}${API_ENDPOINTS.QUESTIONS}?${paramsUrl.toString()}`;
+  return `${API_ENDPOINTS.QUESTIONS}?${paramsUrl.toString()}`;
 }

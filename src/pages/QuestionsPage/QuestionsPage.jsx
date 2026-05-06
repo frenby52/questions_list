@@ -1,4 +1,4 @@
-import {useCallback, useMemo } from 'react';
+import { useCallback, useMemo } from 'react';
 import classes from './QuestionsPage.module.scss';
 import QuestionList from '../../components/QuestionList/QuestionList.jsx';
 import Filter from '../../components/Filter/Filter.jsx';
@@ -9,6 +9,7 @@ import { SEARCH_DEBOUNCE_MS, PAGE_SIZE_DEFAULT } from '../../constants/constants
 import { useFilters } from '../../helpers/hooks/useFilters.js';
 import { useQuestionsData } from '../../helpers/hooks/useQuestionsData.js';
 import { useModalState } from '../../helpers/hooks/useModalState.js';
+import Pagination from '../../components/Pagination/Pagination.jsx';
 
 function QuestionsPage() {
   const [isFilterOpen, handleOpenFilter, handleCloseFilter] = useModalState();
@@ -38,16 +39,15 @@ function QuestionsPage() {
   return (
     <div className={classes.page}>
       <div className={classes.content}>
-        <QuestionList
-          title={currentSpecTitle}
-          questions={questions.data}
-          isLoading={isLoading}
-          page={page}
-          totalPages={totalPages}
-          onPageChange={handlePageChange}
-          onOpenFilter={handleOpenFilter}
-        />
-
+        <div className={classes.contentWrapper}>
+          <QuestionList
+            title={currentSpecTitle}
+            questions={questions.data}
+            isLoading={isLoading}
+            onOpenFilter={handleOpenFilter}
+          />
+          <Pagination page={page} totalPages={totalPages} onChange={handlePageChange} />
+        </div>
         <div className={classes.desktopFilter}>
           <Filter
             specializations={specializations.data}
