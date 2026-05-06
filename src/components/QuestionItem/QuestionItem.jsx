@@ -3,10 +3,10 @@ import classes from './QuestionItem.module.scss';
 import chevronDownIcon from '../../assets/icons/chevron-down-brand.svg';
 import kebabIcon from '../../assets/icons/kebab.svg';
 import ContentRenderer from '../ContentRenderer/ContentRenderer.jsx';
-import { MENU_ITEMS } from '../../constants/constants.js';
 import { useMenu } from '../../helpers/hooks/useMenu.js';
 import { ROUTES } from '../../constants/routes.js';
 import { useNavigate } from 'react-router-dom';
+import QuestionMenu from '../QuestionMenu/QuestionMenu.jsx';
 
 function QuestionItem({ question, defaultOpen = false }) {
   const [isQuestionOpen, setIsQuestionOpen] = useState(defaultOpen);
@@ -73,28 +73,7 @@ function QuestionItem({ question, defaultOpen = false }) {
                 <img src={kebabIcon} alt="" width={18} height={18} />
               </button>
 
-              {isMenuOpen && (
-                <ul className={classes.menu} role="menu">
-                  {MENU_ITEMS.map((item) => {
-                    const itemClassName = item.disabled
-                      ? `${classes.menuItem} ${classes.menuItemDisabled}`
-                      : classes.menuItem;
-                    return (
-                      <li key={item.id} >
-                        <button
-                          type="button"
-                          className={itemClassName}
-                          disabled={item.disabled}
-                          onClick={() => handleMenuItemClick(item.id)}
-                        >
-                          <img src={item.iconSrc} alt="" width={18} height={18} />
-                          <span>{item.label}</span>
-                        </button>
-                      </li>
-                    );
-                  })}
-                </ul>
-              )}
+              {isMenuOpen && <QuestionMenu handleMenuItemClick={handleMenuItemClick} />}
             </div>
           </div>
 
