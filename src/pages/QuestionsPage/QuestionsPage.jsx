@@ -2,24 +2,29 @@ import { useCallback, useMemo } from 'react';
 import classes from './QuestionsPage.module.scss';
 import QuestionList from '../../components/QuestionList/QuestionList.jsx';
 import QuestionsFilters from '../../components/QuestionsFilters/QuestionsFilters.jsx';
-import { useDebounce } from '../../helpers/hooks/useDebounce.js';
 import Loader from '../../components/Loader/Loader.jsx';
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage.jsx';
-import { SEARCH_DEBOUNCE_MS, PAGE_SIZE_DEFAULT } from '../../constants/constants.js';
+import { PAGE_SIZE_DEFAULT } from '../../constants/constants.js';
 import { useFilters } from '../../helpers/hooks/useFilters.js';
 import { useQuestionsData } from '../../helpers/hooks/useQuestionsData.js';
 import { useModalState } from '../../helpers/hooks/useModalState.js';
 import Pagination from '../../components/Pagination/Pagination.jsx';
 
+
 function QuestionsPage() {
+
   const [isFilterOpen, handleOpenFilter, handleCloseFilter] = useModalState();
-  const [filters, setFilters, page, handlePageChange, handleFiltersChange] = useFilters();
-  const debouncedSearch = useDebounce(filters.search, SEARCH_DEBOUNCE_MS);
+  // console.log(searchParams.getAll('complexity'));
+  const [filters, setFilters, page, debouncedSearch, handlePageChange, handleFiltersChange] = useFilters();
+
 
   const handleInitialLoad = useCallback((id) => {
-    setFilters(prev => ({ ...prev, specializationId: id }));
+    // setFilters(prev => ({ ...prev, specializationId: id }));
     // setFilters(prev => prev.specializationId ? prev : { ...prev, specializationId: id });
-  }, [setFilters]);
+    if (!filters.specializationId) {
+      setFilters(prev => ({ ...prev, specializationId: id }));
+    }
+  }, [filters.specializationId, setFilters]);
 
   const { questions, specializations, skills, isLoading, fetchError } = useQuestionsData(filters, page, debouncedSearch, handleInitialLoad);
 

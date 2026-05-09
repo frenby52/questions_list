@@ -3,7 +3,6 @@ import { PAGE_SIZE_DEFAULT, ARRAY_TYPE_PROPERTIES } from '../../constants/consta
 
 export const API_ENDPOINTS = {
   QUESTIONS: `/questions/public-questions`,
-//  QUESTION_BY_ID: (id) => `/questions/public-questions/${id}`,
   SPECIALIZATIONS: `/specializations`,
   SKILLS: `/skills`,
 };
@@ -16,65 +15,57 @@ export async function apiRequest(url) {
   return response.json();
 }
 
-export function buildQueryParams(filters, page) {
-  const params = { page };
+export function mapFiltersToParams(filters, page) {
+  const params = new URLSearchParams();
+  
+  if (page > 1) params.set('page', String(page));
 
-  if (filters.search.trim()) {
-    params.titleOrDescription = filters.search.trim();
+  // params.set('limit', String(PAGE_SIZE_DEFAULT));
+  
+  if (filters.search?.trim()) {
+    params.set('titleOrDescription', filters.search.trim());
   }
+
   if (filters.specializationId) {
-    params.specializationId = filters.specializationId;
-  }
-  if (filters.skills.length) {
-    params.skills = filters.skills;
-  }
-  if (filters.keywords?.length) {
-    params.keywords = filters.keywords;
+    params.set('specializationId', String(filters.specializationId));
   }
 
-  if (filters.complexity.length) {
-    params.complexity = filters.complexity.flat();
-  }
-  if (filters.rate.length) {
-    params.rate = filters.rate;
-  }
+  ARRAY_TYPE_PROPERTIES.forEach(key => {
+    const value = filters[key];
+    if (Array.isArray(value) && value.length > 0) {
+      params.set(key, value.join(','));
+    }
+  });
+
   if (filters.status && filters.status !== 'all') {
-    params.status = filters.status;
+    params.set('status', filters.status);
   }
 
   return params;
 }
 
-export function buildUrl(params) {
-  const paramsUrl = new URLSearchParams({
-    page: params.page,
-    limit: params.limit || PAGE_SIZE_DEFAULT
-  });
-
-  if (params.titleOrDescription?.length) {
-    paramsUrl.set('titleOrDescription', params.titleOrDescription);
-  }
-
-  if (params.specializationId) {
-    paramsUrl.set('specializationId', params.specializationId);
-  }
-
-  ARRAY_TYPE_PROPERTIES.forEach(key => {
-    if (params[key]?.length) {
-      paramsUrl.set(key, params[key].join(', '));
-    }
-  });
-
-  if (params.keywords?.length) {
-    paramsUrl.set('keywords', params.keywords.join(','));
-  }
-
-  if (params.status && params.status !== 'all') {
-    paramsUrl.set('status', params.status);
-  }
-
-  return `${API_ENDPOINTS.QUESTIONS}?${paramsUrl.toString()}`;
+export function buildUrl(params, apiUrl) {
+  return `${apiUrl}?${params.toString()}`;
 }
+
+export function parseArray(searchParams, key) {
+  // return searchParams.get(key) ? searchParams.get(key).split(',') : [];  //
+  const raw = searchParams.get(key);
+  if (!raw) return [];
+  return raw.split(',').map((s) => s.trim()).filter(Boolean);
+}
+
+//-----------------------
+
+export function parseNumberListParam(searchParams, key) {
+  const raw = searchParams.get(key);
+  if (!raw) return [];
+  return raw
+    .split(',')
+    .map((s) => Number(String(s).trim()))
+    .filter((n) => !Number.isNaN(n));
+}
+//------------------------
 
 export function logQuestionsRequest(label, queryString) {
   console.info(`[API] GET ${API_ENDPOINTS.QUESTIONS}?${queryString} (${label})`);

@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { apiRequest, buildQueryParams, buildUrl } from '../../helpers/utils/api.js';
+import { apiRequest, mapFiltersToParams, buildUrl } from '../../helpers/utils/api.js';
 import { API_ENDPOINTS } from '../../helpers/utils/api.js';
 
 export const useQuestionsData = (filters, page, debouncedSearch, onInitialLoad) => {
@@ -43,8 +43,8 @@ export const useQuestionsData = (filters, page, debouncedSearch, onInitialLoad) 
           status,
         };
 
-        const params = buildQueryParams(debouncedFilters, page);
-        const url = buildUrl(params);
+        const params = mapFiltersToParams(debouncedFilters, page);
+        const url = buildUrl(params, API_ENDPOINTS.QUESTIONS);
 
         if (prevSpecializationId.current !== specializationId) {
           const [newQuestions, newSkills] = await Promise.all([
