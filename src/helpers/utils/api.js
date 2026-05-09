@@ -3,6 +3,7 @@ import { PAGE_SIZE_DEFAULT, ARRAY_TYPE_PROPERTIES } from '../../constants/consta
 
 export const API_ENDPOINTS = {
   QUESTIONS: `/questions/public-questions`,
+//  QUESTION_BY_ID: (id) => `/questions/public-questions/${id}`,
   SPECIALIZATIONS: `/specializations`,
   SKILLS: `/skills`,
 };
@@ -26,6 +27,9 @@ export function buildQueryParams(filters, page) {
   }
   if (filters.skills.length) {
     params.skills = filters.skills;
+  }
+  if (filters.keywords?.length) {
+    params.keywords = filters.keywords;
   }
 
   if (filters.complexity.length) {
@@ -61,9 +65,17 @@ export function buildUrl(params) {
     }
   });
 
+  if (params.keywords?.length) {
+    paramsUrl.set('keywords', params.keywords.join(','));
+  }
+
   if (params.status && params.status !== 'all') {
     paramsUrl.set('status', params.status);
   }
 
   return `${API_ENDPOINTS.QUESTIONS}?${paramsUrl.toString()}`;
+}
+
+export function logQuestionsRequest(label, queryString) {
+  console.info(`[API] GET ${API_ENDPOINTS.QUESTIONS}?${queryString} (${label})`);
 }

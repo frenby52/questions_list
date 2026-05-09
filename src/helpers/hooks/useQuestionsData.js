@@ -11,7 +11,7 @@ export const useQuestionsData = (filters, page, debouncedSearch, onInitialLoad) 
   const [isLoading, setIsLoading] = useState(true);
   const [fetchError, setFetchError] = useState(null);
   const prevSpecializationId = useRef(null);
-  const { specializationId, skills: skillIds, complexity, rate, status } = filters;
+  const { specializationId, skills: skillIds, keywords, complexity, rate, status } = filters;
 
   useEffect(() => {
     const fetchData = async () => {
@@ -37,6 +37,7 @@ export const useQuestionsData = (filters, page, debouncedSearch, onInitialLoad) 
           search: debouncedSearch,
           specializationId,
           skills: skillIds,
+          keywords,
           complexity,
           rate,
           status,
@@ -64,7 +65,7 @@ export const useQuestionsData = (filters, page, debouncedSearch, onInitialLoad) 
       } 
     };
     fetchData();
-  }, [debouncedSearch, specializationId, skillIds, complexity, rate, status, page, onInitialLoad]);
+  }, [debouncedSearch, specializationId, skillIds, keywords, complexity, rate, status, page, onInitialLoad]);
 
   return { questions: data.questions, specializations: data.specializations, skills: data.skills, isLoading, fetchError };
 };

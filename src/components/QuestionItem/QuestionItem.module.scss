@@ -87,31 +87,6 @@
   flex-wrap: wrap;
 }
 
-.metaItem {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 6px 12px;
-  background: var(--color-black-10);
-  border-radius: 8px;
-  font-size: var(--font-size-14);
-  color: var(--color-black-700);
-}
-
-.metaValue {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 24px;
-  height: 24px;
-  padding: 0 6px;
-  border-radius: 4px;
-  background: var(--color-brand);
-  color: var(--color-white);
-  font-weight: var(--font-weight-semibold);
-  font-size: var(--font-size-13);
-}
-
 .actions {
   position: relative;
   flex-shrink: 0;

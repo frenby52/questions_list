@@ -1,7 +1,7 @@
 import { useCallback, useMemo } from 'react';
 import classes from './QuestionsPage.module.scss';
 import QuestionList from '../../components/QuestionList/QuestionList.jsx';
-import Filter from '../../components/Filter/Filter.jsx';
+import QuestionsFilters from '../../components/QuestionsFilters/QuestionsFilters.jsx';
 import { useDebounce } from '../../helpers/hooks/useDebounce.js';
 import Loader from '../../components/Loader/Loader.jsx';
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage.jsx';
@@ -18,6 +18,7 @@ function QuestionsPage() {
 
   const handleInitialLoad = useCallback((id) => {
     setFilters(prev => ({ ...prev, specializationId: id }));
+    // setFilters(prev => prev.specializationId ? prev : { ...prev, specializationId: id });
   }, [setFilters]);
 
   const { questions, specializations, skills, isLoading, fetchError } = useQuestionsData(filters, page, debouncedSearch, handleInitialLoad);
@@ -49,7 +50,7 @@ function QuestionsPage() {
           <Pagination page={page} totalPages={totalPages} onChange={handlePageChange} />
         </div>
         <div className={classes.desktopFilter}>
-          <Filter
+          <QuestionsFilters
             specializations={specializations.data}
             skills={skills.data}
             filters={filters}
@@ -67,7 +68,7 @@ function QuestionsPage() {
             className={classes.overlayInner}
             onClick={(event) => event.stopPropagation()}
           >
-            <Filter
+            <QuestionsFilters
               specializations={specializations.data}
               skills={skills.data}
               filters={filters}

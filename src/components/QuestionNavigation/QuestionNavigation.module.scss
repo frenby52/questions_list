@@ -1,0 +1,56 @@
+@use "../../styles/variables" as *;
+@use "../../styles/mixins" as *;
+
+.nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  padding: 16px;
+  background: var(--color-white);
+  border-radius: 20px;
+  box-shadow: var(--shadow-main);
+
+  @include mobile {
+    border-radius: 12px;
+    padding: 16px;
+    gap: 10px;
+  }
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 48px;
+  min-width: 170px;
+  padding: 13px;
+  border-radius: 12px;
+  color: var(--color-black-700);
+  font-size: var(--font-size-16);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-tight);
+  background: var(--color-white);
+  transition: background-color 0.15s ease, color 0.15s ease;
+
+  &:hover:not(:disabled) {
+    background: var(--color-black-10);
+  }
+
+  &:disabled {
+    color: var(--color-black-200);
+    cursor: not-allowed;
+  }
+
+  @include mobile {
+    width: auto;
+    flex: 1;
+    min-width: 140px;
+    height: auto;
+    padding: 4px;
+    gap: 4px;
+    font-size: var(--font-size-14);
+    font-weight: var(--font-weight-regular);
+  }
+}

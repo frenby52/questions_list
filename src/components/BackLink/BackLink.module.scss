@@ -1,0 +1,21 @@
+@use "../../styles/variables" as *;
+
+.back {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px;
+  color: var(--color-brand-hover);
+  font-size: var(--font-size-16);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-tight);
+  transition: color 0.15s ease;
+
+  &:hover {
+    color: var(--color-brand-active);
+  }
+}
+
+.label {
+  white-space: nowrap;
+}

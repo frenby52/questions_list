@@ -6,6 +6,7 @@ const initialFilters = {
   search: '',
   specializationId: null,
   skills: [],
+  keywords: [],
   complexity: [],
   rate: [],
   status: 'all',

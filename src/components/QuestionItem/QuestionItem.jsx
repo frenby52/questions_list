@@ -7,14 +7,13 @@ import { useMenu } from '../../helpers/hooks/useMenu.js';
 import { ROUTES } from '../../constants/routes.js';
 import { useNavigate } from 'react-router-dom';
 import QuestionMenu from '../QuestionMenu/QuestionMenu.jsx';
+import MetaPill from '../MetaPill/MetaPill.jsx';
 
 function QuestionItem({ question, defaultOpen = false }) {
   const [isQuestionOpen, setIsQuestionOpen] = useState(defaultOpen);
   const [isMenuOpen, setIsMenuOpen, menuRef] = useMenu();
   const navigate = useNavigate();
-  const toggleIconClass = isQuestionOpen
-    ? `${classes.toggleIcon} ${classes.toggleIconOpen}`
-    : classes.toggleIcon;
+  const toggleIconClass = isQuestionOpen ? `${classes.toggleIcon} ${classes.toggleIconOpen}` : classes.toggleIcon;
 
   const handleMenuItemClick = (id) => {
     if (id === 'details') {
@@ -31,17 +30,8 @@ function QuestionItem({ question, defaultOpen = false }) {
       >
         <span className={classes.bullet} />
         <h3 className={classes.title}>{question.title}</h3>
-        <button
-          type="button"
-          className={classes.toggle}
-        >
-          <img
-            className={toggleIconClass}
-            src={chevronDownIcon}
-            alt=""
-            width={20}
-            height={20}
-          />
+        <button type="button" className={classes.toggle}>
+          <img className={toggleIconClass} src={chevronDownIcon} alt="" width={20} height={20} />
         </button>
       </header>
 
@@ -49,18 +39,9 @@ function QuestionItem({ question, defaultOpen = false }) {
         <div className={classes.body}>
           <div className={classes.metaRow}>
             <div className={classes.meta}>
-              <span className={classes.metaItem}>
-                Рейтинг:
-                <span className={classes.metaValue}>{question.rate ?? 0}</span>
-              </span>
-              <span className={classes.metaItem}>
-                Сложность:
-                <span className={classes.metaValue}>
-                  {question.complexity ?? 0}
-                </span>
-              </span>
+              <MetaPill label="Рейтинг:" value={question.rate ?? 0} />
+              <MetaPill label="Сложность:" value={question.complexity ?? 0} />
             </div>
-
             <div className={classes.actions} ref={menuRef}>
               <button
                 type="button"
@@ -72,18 +53,12 @@ function QuestionItem({ question, defaultOpen = false }) {
               >
                 <img src={kebabIcon} alt="" width={18} height={18} />
               </button>
-
               {isMenuOpen && <QuestionMenu handleMenuItemClick={handleMenuItemClick} />}
             </div>
           </div>
 
           {question.imageSrc && (
-            <img
-              className={classes.image}
-              src={question.imageSrc}
-              alt=""
-              loading="lazy"
-            />
+            <img className={classes.image} src={question.imageSrc} alt="" loading="lazy" width={100} height={100} />
           )}
           <div className={classes.shortAnswer}><ContentRenderer content={question.shortAnswer} /></div>
         </div>

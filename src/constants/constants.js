@@ -12,7 +12,7 @@ export const SEARCH_DEBOUNCE_MS = 1000;
 
 export const PAGE_SIZE_DEFAULT = 10;
 
-export const ARRAY_TYPE_PROPERTIES = ['skills', 'complexity', 'rate'];
+export const ARRAY_TYPE_PROPERTIES = ['skills', 'complexity', 'rate', 'keywords'];
 
 export const MENU_ITEMS = [
     { id: 'details', label: 'Подробнее', iconSrc: detailsIcon },

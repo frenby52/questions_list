@@ -1,0 +1,104 @@
+@use "../../styles/variables" as *;
+@use "../../styles/mixins" as *;
+
+.hero {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  padding: 24px;
+  background: var(--color-white);
+  border-radius: 24px;
+  box-shadow: var(--shadow-main);
+
+  @include tablet-and-below {
+    padding: 16px;
+  }
+
+  @include mobile {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 10px 10px 20px;
+    border-radius: 12px;
+  }
+}
+
+.imageWrap {
+  flex-shrink: 0;
+  width: 160px;
+  height: 160px;
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--color-black-10);
+
+  @include mobile {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1 / 1;
+    border-radius: 8px;
+    max-height: 320px;
+  }
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.body {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 4px 0;
+
+  @include mobile {
+    padding: 0;
+    gap: 4px;
+  }
+}
+
+.titleRow {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.title {
+  flex: 1;
+  min-width: 0;
+  font-size: var(--font-size-24);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-tight);
+  color: var(--color-black-700);
+  word-wrap: break-word;
+  overflow-wrap: anywhere;
+
+  @include mobile {
+    font-size: var(--font-size-20);
+  }
+}
+
+.filterBtn {
+  display: none;
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--color-black-200);
+  border-radius: 8px;
+  background: var(--color-white);
+
+  @include tablet-and-below {
+    display: inline-flex;
+  }
+}
+
+.description {
+  font-size: var(--font-size-16);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-base);
+  color: var(--color-black-700);
+}
