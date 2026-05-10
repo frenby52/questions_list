@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { apiRequest, mapFiltersToParams, buildUrl } from '../../helpers/utils/api.js';
-import { API_ENDPOINTS } from '../../helpers/utils/api.js';
+import { apiRequest, mapFiltersToParams, buildUrl, API_ENDPOINTS } from '../utils/api.js';
 
 export const useQuestionsData = (filters, page, debouncedSearch, onInitialLoad) => {
   const [data, setData] = useState({
@@ -10,62 +9,75 @@ export const useQuestionsData = (filters, page, debouncedSearch, onInitialLoad) 
   });
   const [isLoading, setIsLoading] = useState(true);
   const [fetchError, setFetchError] = useState(null);
-  const prevSpecializationId = useRef(null);
   const { specializationId, skills: skillIds, keywords, complexity, rate, status } = filters;
+  const onInitialLoadRef = useRef(onInitialLoad);
+  const initialSpecIdRef = useRef(specializationId);
 
   useEffect(() => {
-    const fetchData = async () => {
+    const loadSpecializations = async () => {
       try {
-        setIsLoading(true);
-        if (specializationId === null) {
-          const { total: totalSpecializations } = await apiRequest(API_ENDPOINTS.SPECIALIZATIONS);
-          const specializations = await apiRequest(`${API_ENDPOINTS.SPECIALIZATIONS}?limit=${totalSpecializations}`);
-          setData((prev) => ({ ...prev, specializations }));
+        const { total: totalSpecializations } = await apiRequest(API_ENDPOINTS.SPECIALIZATIONS);
+        const specializations = await apiRequest(`${API_ENDPOINTS.SPECIALIZATIONS}?limit=${totalSpecializations}`);
+        setData((prev) => ({ ...prev, specializations }));
 
-          if (!specializationId && specializations.data.length > 0) {
-            onInitialLoad(specializations.data[0].id);
-            return;
-          }
-
-          if (specializations.data.length === 0 || !specializationId) {
-            setIsLoading(false);
-            return;
-          }
+        if (!initialSpecIdRef.current && specializations.data.length > 0) {
+          onInitialLoadRef.current(specializations.data[0].id);
         }
-
-        const debouncedFilters = {
-          search: debouncedSearch,
-          specializationId,
-          skills: skillIds,
-          keywords,
-          complexity,
-          rate,
-          status,
-        };
-
-        const params = mapFiltersToParams(debouncedFilters, page);
-        const url = buildUrl(params, API_ENDPOINTS.QUESTIONS);
-
-        if (prevSpecializationId.current !== specializationId) {
-          const [newQuestions, newSkills] = await Promise.all([
-            apiRequest(`${API_ENDPOINTS.QUESTIONS}?specializationId=${specializationId}`),
-            apiRequest(`${API_ENDPOINTS.SKILLS}?specializations=${specializationId}`),
-          ]);
-          setData(prev => ({ ...prev, questions: newQuestions, skills: newSkills }));
-          prevSpecializationId.current = specializationId;
-        } else {
-          const newQuestions = await apiRequest(url);
-          setData(prev => ({ ...prev, questions: newQuestions }));
-        }
-        setFetchError(null);
-        setIsLoading(false);
       } catch (err) {
         setFetchError(err);
-        setIsLoading(false);
-      } 
+      }
     };
-    fetchData();
-  }, [debouncedSearch, specializationId, skillIds, keywords, complexity, rate, status, page, onInitialLoad]);
+    loadSpecializations();
+  }, []);
 
-  return { questions: data.questions, specializations: data.specializations, skills: data.skills, isLoading, fetchError };
+  useEffect(() => {
+    if (!specializationId) return;
+    const loadSkills = async () => {
+      try {
+        const skills = await apiRequest(`${API_ENDPOINTS.SKILLS}?specializations=${specializationId}`);
+        setData((prev) => ({ ...prev, skills }));
+      } catch (err) {
+        setFetchError(err);
+      }
+    };
+    loadSkills();
+  }, [specializationId]);
+
+  useEffect(() => {
+    if (!specializationId) return;
+    const loadQuestions = async () => {
+      try {
+        setIsLoading(true);
+        const params = mapFiltersToParams(
+          {
+            search: debouncedSearch,
+            specializationId,
+            skills: skillIds,
+            keywords,
+            complexity,
+            rate,
+            status,
+          },
+          page,
+        );
+        const url = buildUrl(params, API_ENDPOINTS.QUESTIONS);
+        const questions = await apiRequest(url);
+        setData((prev) => ({ ...prev, questions }));
+        setFetchError(null);
+      } catch (err) {
+        setFetchError(err);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    loadQuestions();
+  }, [specializationId, skillIds, keywords, complexity, rate, status, debouncedSearch, page]);
+
+  return {
+    questions: data.questions,
+    specializations: data.specializations,
+    skills: data.skills,
+    isLoading,
+    fetchError,
+  };
 };
