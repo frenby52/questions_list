@@ -1,6 +1,6 @@
 import { useState, useCallback, useEffect } from 'react';
 import { ARRAY_TYPE_PROPERTIES, SEARCH_DEBOUNCE_MS } from '../../constants/constants.js';
-import { toggleInArray } from '../utils/utils.js';
+import { toggleInArray, toggleComplexity } from '../utils/utils.js';
 import { useSearchParams } from 'react-router-dom';
 import { parseArray, parseNumberList, mapFiltersToParams } from '../utils/api.js';
 import { useDebounce } from './useDebounce.js';
@@ -29,7 +29,6 @@ export const useFilters = () => {
   });
 
   const [page, setPage] = useState(() => Number(searchParams.get('page')) || 1);
-
   const debouncedSearch = useDebounce(filters.search, SEARCH_DEBOUNCE_MS);
 
   useEffect(() => {
@@ -44,12 +43,14 @@ export const useFilters = () => {
       if (key === 'specializationId') {
         return { ...defaultFilters, [key]: newValue };
       }
+      if (key === 'complexity') {
+        return { ...prevFilters, complexity: toggleComplexity(prevFilters.complexity, newValue) };
+      }
       const actualValue = ARRAY_TYPE_PROPERTIES.includes(key)
         ? toggleInArray(prevFilters[key], newValue)
         : newValue;
       return { ...prevFilters, [key]: actualValue };
     });
-
 
     setPage(1);
   }, []);

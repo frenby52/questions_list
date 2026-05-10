@@ -11,7 +11,7 @@ function QuestionsFilters({ specializations, skills, filters, onFiltersChange, o
 
   const visibleSpecs = useMemo(() => isSpecsExpanded ? specializations : specializations.slice(0, COLLAPSED_SPECS_COUNT), [specializations, isSpecsExpanded]);
   const visibleSkills = useMemo(() => isSkillsExpanded ? skills : skills.slice(0, COLLAPSED_SKILLS_COUNT), [skills, isSkillsExpanded]);
-  const flatComplexity = useMemo(() => filters.complexity.flat(), [filters.complexity]);
+  // const flatComplexity = useMemo(() => filters.complexity.flat(), [filters.complexity]);
 
   const specsShowMore =
     specializations.length > COLLAPSED_SPECS_COUNT
@@ -68,15 +68,19 @@ function QuestionsFilters({ specializations, skills, filters, onFiltersChange, o
         ))}
       </FilterGroup>
       <FilterGroup title="Уровень сложности">
-        {COMPLEXITY_OPTIONS.map((option) => (
-          <FilterChip
-            key={option.value}
-            label={option.label}
-            variant="compact"
-            isActive={flatComplexity.some((filterValue) => option.value.includes(filterValue))}
-            onClick={() => onFiltersChange('complexity', option.value)}
-          />
-        ))}
+        {COMPLEXITY_OPTIONS.map((option) => {
+          const optionValues = option.value.split(',');
+          const isActive = optionValues.some((v) => filters.complexity.includes(v));
+          return (
+            <FilterChip
+              key={option.value}
+              label={option.label}
+              variant="compact"
+              isActive={isActive}
+              onClick={() => onFiltersChange('complexity', option.value)}
+            />
+          );
+        })}
       </FilterGroup>
       <FilterGroup title="Рейтинг">
         {RATE_OPTIONS.map((rate) => (

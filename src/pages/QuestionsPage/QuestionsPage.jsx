@@ -10,17 +10,12 @@ import { useQuestionsData } from '../../helpers/hooks/useQuestionsData.js';
 import { useModalState } from '../../helpers/hooks/useModalState.js';
 import Pagination from '../../components/Pagination/Pagination.jsx';
 
-
 function QuestionsPage() {
 
   const [isFilterOpen, handleOpenFilter, handleCloseFilter] = useModalState();
-  // console.log(searchParams.getAll('complexity'));
   const [filters, setFilters, page, debouncedSearch, handlePageChange, handleFiltersChange] = useFilters();
 
-
   const handleInitialLoad = useCallback((id) => {
-    // setFilters(prev => ({ ...prev, specializationId: id }));
-    // setFilters(prev => prev.specializationId ? prev : { ...prev, specializationId: id });
     if (!filters.specializationId) {
       setFilters(prev => ({ ...prev, specializationId: id }));
     }
