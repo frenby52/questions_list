@@ -1,17 +1,14 @@
 import classes from './QuestionList.module.scss';
 import QuestionItem from '../QuestionItem/QuestionItem.jsx';
-import QuestionListHeader from '../QuestionListHeader/QuestionListHeader.jsx';
 import SkeletonQuestionList from '../SkeletonQuestionList/SkeletonQuestionList.jsx';
 
-function QuestionList({ title, questions, isLoading, onOpenFilter }) {
+function QuestionList({ questions, isLoading }) {
   return (
     <>
       {isLoading ? (
         <SkeletonQuestionList />
       ) : (
         <section>
-          <QuestionListHeader title={title} onOpenFilter={onOpenFilter} />
-
           {questions.length === 0 && !isLoading ? (
             <div className={classes.empty}>Ничего не найдено</div>
           ) : (

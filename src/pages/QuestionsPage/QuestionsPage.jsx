@@ -8,6 +8,7 @@ import { useFilters } from '../../helpers/hooks/useFilters.js';
 import { useQuestionsData } from '../../helpers/hooks/useQuestionsData.js';
 import { useModalState } from '../../helpers/hooks/useModalState.js';
 import Pagination from '../../components/Pagination/Pagination.jsx';
+import QuestionListHeader from '../../components/QuestionListHeader/QuestionListHeader.jsx';
 
 function QuestionsPage() {
   const [isFilterOpen, handleOpenFilter, handleCloseFilter] = useModalState();
@@ -32,11 +33,8 @@ function QuestionsPage() {
     <div className={classes.page}>
       <div className={classes.content}>
         <div className={classes.contentWrapper}>
-          <QuestionList
-            title={currentSpecTitle}
-            questions={questions.data}
-            isLoading={isQuestionsLoading}
-            onOpenFilter={handleOpenFilter}
+          {!isQuestionsLoading && <QuestionListHeader title={currentSpecTitle} onOpenFilter={handleOpenFilter} />}
+          <QuestionList questions={questions.data} isLoading={isQuestionsLoading}
           />
           <Pagination page={page} totalPages={totalPages} onChange={handlePageChange} />
         </div>
@@ -53,14 +51,8 @@ function QuestionsPage() {
       </div>
 
       {isFilterOpen && (
-        <div
-          className={classes.overlay}
-          onClick={handleCloseFilter}
-        >
-          <div
-            className={classes.overlayInner}
-            onClick={(event) => event.stopPropagation()}
-          >
+        <div className={classes.overlay} onClick={handleCloseFilter}>
+          <div className={classes.overlayInner} onClick={(event) => event.stopPropagation()}>
             <QuestionsFilters
               specializations={specializations.data}
               skills={skills.data}

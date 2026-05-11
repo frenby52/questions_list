@@ -43,8 +43,11 @@ export const useQuestionsData = (filters, page, debouncedSearch, onInitialLoad) 
   }, []);
 
   useEffect(() => {
-    if (!specializationId) return;
     const loadSkills = async () => {
+      if (!specializationId) {
+        setIsSkillsLoading(false);
+        return;
+      };
       try {
         setIsSkillsLoading(true);
         const skills = await apiRequest(`${API_ENDPOINTS.SKILLS}?specializations=${specializationId}`);
