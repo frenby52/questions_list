@@ -9,7 +9,14 @@ export const useQuestionsData = (filters, page, debouncedSearch, onInitialLoad) 
   });
   const [isLoading, setIsLoading] = useState(true);
   const [fetchError, setFetchError] = useState(null);
-  const { specializationId, skills: skillIds, keywords, complexity, rate, status } = filters;
+  const {search, specializationId, skills: skillIds, keywords, complexity, rate, status} = filters;
+  const hasOtherFiltersInUrl = useRef(
+    search.trim() !== '' ||
+    skillIds.length > 0 || 
+    keywords.length > 0 || 
+    complexity.length > 0 || 
+    rate.length > 0
+  );
   const onInitialLoadRef = useRef(onInitialLoad);
   const initialSpecIdRef = useRef(specializationId);
 
@@ -20,7 +27,7 @@ export const useQuestionsData = (filters, page, debouncedSearch, onInitialLoad) 
         const specializations = await apiRequest(`${API_ENDPOINTS.SPECIALIZATIONS}?limit=${totalSpecializations}`);
         setData((prev) => ({ ...prev, specializations }));
 
-        if (!initialSpecIdRef.current && specializations.data.length > 0) {
+        if (!initialSpecIdRef.current && specializations.data.length > 0 && !hasOtherFiltersInUrl.current) {
           onInitialLoadRef.current(specializations.data[0].id);
         }
       } catch (err) {
@@ -44,7 +51,6 @@ export const useQuestionsData = (filters, page, debouncedSearch, onInitialLoad) 
   }, [specializationId]);
 
   useEffect(() => {
-    if (!specializationId) return;
     const loadQuestions = async () => {
       try {
         setIsLoading(true);
@@ -73,11 +79,5 @@ export const useQuestionsData = (filters, page, debouncedSearch, onInitialLoad) 
     loadQuestions();
   }, [specializationId, skillIds, keywords, complexity, rate, status, debouncedSearch, page]);
 
-  return {
-    questions: data.questions,
-    specializations: data.specializations,
-    skills: data.skills,
-    isLoading,
-    fetchError,
-  };
+  return {questions: data.questions, specializations: data.specializations, skills: data.skills, isLoading, fetchError};
 };

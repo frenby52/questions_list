@@ -10,8 +10,8 @@ import Loader from '../../components/Loader/Loader.jsx';
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage.jsx';
 import { useQuestion } from '../../helpers/hooks/useQuestion.js';
 import { useModalState } from '../../helpers/hooks/useModalState.js';
-import { logQuestionsRequest } from '../../helpers/utils/api.js';
 import { ROUTES } from '../../constants/routes.js';
+import { buildUrl } from '../../helpers/utils/api.js';
 
 function QuestionPage() {
   const { id } = useParams();
@@ -19,18 +19,10 @@ function QuestionPage() {
   const { question, isLoading, fetchError } = useQuestion(id);
   const [isDetailsOpen, openDetails, closeDetails] = useModalState();
 
-  const handleSkillClick = useCallback((skillId) => {
-    const queryString = new URLSearchParams({
-      skills: String(skillId),
-    }).toString();
-    logQuestionsRequest('skill click', queryString);
-    navigate(ROUTES.QUESTIONS);
-  }, [navigate]);
-
-  const handleKeywordClick = useCallback((keyword) => {
-    const queryString = new URLSearchParams({ keywords: keyword }).toString();
-    logQuestionsRequest('keyword click', queryString);
-    navigate(ROUTES.QUESTIONS);
+  const handleFilterClick = useCallback((key, value) => {
+    const params = new URLSearchParams();
+    params.set(key, String(value));
+    navigate(buildUrl(params, ROUTES.QUESTIONS));
   }, [navigate]);
 
   if (isLoading) return <Loader />;
@@ -55,8 +47,7 @@ function QuestionPage() {
         <div className={classes.sidebar}>
           <QuestionFilters
             question={question}
-            onSkillClick={handleSkillClick}
-            onKeywordClick={handleKeywordClick}
+            onFilterClick={handleFilterClick}
           />
         </div>
       </div>
@@ -72,8 +63,7 @@ function QuestionPage() {
           >
             <QuestionFilters
               question={question}
-              onSkillClick={handleSkillClick}
-              onKeywordClick={handleKeywordClick}
+              onFilterClick={handleFilterClick}
               showClose
               onClose={closeDetails}
             />

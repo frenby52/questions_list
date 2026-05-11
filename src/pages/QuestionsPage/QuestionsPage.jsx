@@ -11,7 +11,6 @@ import { useModalState } from '../../helpers/hooks/useModalState.js';
 import Pagination from '../../components/Pagination/Pagination.jsx';
 
 function QuestionsPage() {
-
   const [isFilterOpen, handleOpenFilter, handleCloseFilter] = useModalState();
   const [filters, setFilters, page, debouncedSearch, handlePageChange, handleFiltersChange] = useFilters();
 
@@ -22,13 +21,11 @@ function QuestionsPage() {
   }, [filters.specializationId, setFilters]);
 
   const { questions, specializations, skills, isLoading, fetchError } = useQuestionsData(filters, page, debouncedSearch, handleInitialLoad);
-
   const totalPages = Math.max(1, Math.ceil(questions.total / PAGE_SIZE_DEFAULT));
-
   const currentSpec = useMemo(() => specializations.data?.find((specialization) => specialization.id === filters.specializationId), [specializations.data, filters.specializationId]);
   const currentSpecTitle = currentSpec ? `Вопросы ${currentSpec.title}` : '';
-
   const isInitialBoot = specializations.data.length === 0 || questions.total === 0;
+  
   if (isLoading && isInitialBoot) {
     return <Loader />;
   }

@@ -5,7 +5,7 @@ function KeywordChip({ keyword, onClick }) {
     <button
       type="button"
       className={classes.chip}
-      onClick={() => onClick?.(keyword)}
+      onClick={onClick}
     >
       #{keyword}
     </button>

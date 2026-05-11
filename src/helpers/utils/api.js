@@ -55,7 +55,3 @@ export function parseArray(searchParams, key) {
 export function parseNumberList(searchParams, key) {
   return searchParams.get(key) ? searchParams.get(key).split(',').map((s) => Number(String(s).trim())).filter((n) => !Number.isNaN(n)) : [];
 }
-
-export function logQuestionsRequest(label, queryString) {
-  console.info(`[API] GET ${API_ENDPOINTS.QUESTIONS}?${queryString} (${label})`);
-}
