@@ -4,14 +4,15 @@ import FilterGroup from '../FilterGroup/FilterGroup.jsx';
 import FilterChip from '../FilterChip/FilterChip.jsx';
 import { COMPLEXITY_OPTIONS, RATE_OPTIONS, STATUS_OPTIONS, COLLAPSED_SPECS_COUNT, COLLAPSED_SKILLS_COUNT } from '../../constants/constants.js';
 import FiltersContainer from '../FiltersContainer/FiltersContainer.jsx';
+import SkeletonQuestionsFilters from '../SkeletonQuestionsFilters/SkeletonQuestionsFilters.jsx';
+import SkeletonQuestionsFiltersAfterSpecs from '../SkeletonQuestionsFiltersAfterSpecs/SkeletonQuestionsFiltersAfterSpecs.jsx';
 
-function QuestionsFilters({ specializations, skills, filters, onFiltersChange, onClose, showClose = false }) {
+function QuestionsFilters({ specializations, skills, filters, onFiltersChange, onClose, showClose = false, isSpecializationsLoading, isSkillsLoading }) {
   const [isSpecsExpanded, setIsSpecsExpanded] = useState(false);
   const [isSkillsExpanded, setIsSkillsExpanded] = useState(false);
 
   const visibleSpecs = useMemo(() => isSpecsExpanded ? specializations : specializations.slice(0, COLLAPSED_SPECS_COUNT), [specializations, isSpecsExpanded]);
   const visibleSkills = useMemo(() => isSkillsExpanded ? skills : skills.slice(0, COLLAPSED_SKILLS_COUNT), [skills, isSkillsExpanded]);
-  // const flatComplexity = useMemo(() => filters.complexity.flat(), [filters.complexity]);
 
   const specsShowMore =
     specializations.length > COLLAPSED_SPECS_COUNT
@@ -26,6 +27,14 @@ function QuestionsFilters({ specializations, skills, filters, onFiltersChange, o
         ? 'Скрыть'
         : 'Посмотреть все'
       : null;
+
+  if (isSpecializationsLoading) {
+    return (
+      <FiltersContainer showClose={showClose} onClose={onClose}>
+        <SkeletonQuestionsFilters />
+      </FiltersContainer>
+    );
+  }
 
   return (
     <FiltersContainer showClose={showClose} onClose={onClose}>
@@ -52,57 +61,63 @@ function QuestionsFilters({ specializations, skills, filters, onFiltersChange, o
           />
         ))}
       </FilterGroup>
-      <FilterGroup
-        title="Навыки"
-        showMoreLabel={skillsShowMore}
-        onShowMore={() => setIsSkillsExpanded((prev) => !prev)}
-      >
-        {visibleSkills.map((skill) => (
-          <FilterChip
-            key={skill.id}
-            label={skill.title}
-            iconSrc={skill.imageSrc}
-            isActive={filters.skills.includes(skill.id)}
-            onClick={() => onFiltersChange('skills', skill.id)}
-          />
-        ))}
-      </FilterGroup>
-      <FilterGroup title="Уровень сложности">
-        {COMPLEXITY_OPTIONS.map((option) => {
-          const optionValues = option.value.split(',');
-          const isActive = optionValues.some((v) => filters.complexity.includes(v));
-          return (
-            <FilterChip
-              key={option.value}
-              label={option.label}
-              variant="compact"
-              isActive={isActive}
-              onClick={() => onFiltersChange('complexity', option.value)}
-            />
-          );
-        })}
-      </FilterGroup>
-      <FilterGroup title="Рейтинг">
-        {RATE_OPTIONS.map((rate) => (
-          <FilterChip
-            key={rate}
-            label={String(rate)}
-            variant="compact"
-            isActive={filters.rate.includes(rate)}
-            onClick={() => onFiltersChange('rate', rate)}
-          />
-        ))}
-      </FilterGroup>
-      <FilterGroup title="Статус">
-        {STATUS_OPTIONS.map((option) => (
-          <FilterChip
-            key={option.value}
-            label={option.label}
-            isActive={filters.status === option.value}
-            onClick={() => onFiltersChange('status', option.value)}
-          />
-        ))}
-      </FilterGroup>
+      {isSkillsLoading ? (
+        <SkeletonQuestionsFiltersAfterSpecs />
+      ) : (
+        <>
+          <FilterGroup
+            title="Навыки"
+            showMoreLabel={skillsShowMore}
+            onShowMore={() => setIsSkillsExpanded((prev) => !prev)}
+          >
+            {visibleSkills.map((skill) => (
+              <FilterChip
+                key={skill.id}
+                label={skill.title}
+                iconSrc={skill.imageSrc}
+                isActive={filters.skills.includes(skill.id)}
+                onClick={() => onFiltersChange('skills', skill.id)}
+              />
+            ))}
+          </FilterGroup>
+          <FilterGroup title="Уровень сложности">
+            {COMPLEXITY_OPTIONS.map((option) => {
+              const optionValues = option.value.split(',');
+              const isActive = optionValues.some((v) => filters.complexity.includes(v));
+              return (
+                <FilterChip
+                  key={option.value}
+                  label={option.label}
+                  variant="compact"
+                  isActive={isActive}
+                  onClick={() => onFiltersChange('complexity', option.value)}
+                />
+              );
+            })}
+          </FilterGroup>
+          <FilterGroup title="Рейтинг">
+            {RATE_OPTIONS.map((rate) => (
+              <FilterChip
+                key={rate}
+                label={String(rate)}
+                variant="compact"
+                isActive={filters.rate.includes(rate)}
+                onClick={() => onFiltersChange('rate', rate)}
+              />
+            ))}
+          </FilterGroup>
+          <FilterGroup title="Статус">
+            {STATUS_OPTIONS.map((option) => (
+              <FilterChip
+                key={option.value}
+                label={option.label}
+                isActive={filters.status === option.value}
+                onClick={() => onFiltersChange('status', option.value)}
+              />
+            ))}
+          </FilterGroup>
+        </>
+      )}
     </FiltersContainer>
   );
 }

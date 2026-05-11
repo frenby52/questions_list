@@ -2,7 +2,6 @@ import { useCallback, useMemo } from 'react';
 import classes from './QuestionsPage.module.scss';
 import QuestionList from '../../components/QuestionList/QuestionList.jsx';
 import QuestionsFilters from '../../components/QuestionsFilters/QuestionsFilters.jsx';
-import Loader from '../../components/Loader/Loader.jsx';
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage.jsx';
 import { PAGE_SIZE_DEFAULT } from '../../constants/constants.js';
 import { useFilters } from '../../helpers/hooks/useFilters.js';
@@ -20,15 +19,10 @@ function QuestionsPage() {
     }
   }, [filters.specializationId, setFilters]);
 
-  const { questions, specializations, skills, isLoading, fetchError } = useQuestionsData(filters, page, debouncedSearch, handleInitialLoad);
+  const { questions, specializations, skills, isSpecializationsLoading, isSkillsLoading, isQuestionsLoading, fetchError } = useQuestionsData(filters, page, debouncedSearch, handleInitialLoad);
   const totalPages = Math.max(1, Math.ceil(questions.total / PAGE_SIZE_DEFAULT));
   const currentSpec = useMemo(() => specializations.data?.find((specialization) => specialization.id === filters.specializationId), [specializations.data, filters.specializationId]);
   const currentSpecTitle = currentSpec ? `Вопросы ${currentSpec.title}` : '';
-  const isInitialBoot = specializations.data.length === 0 || questions.total === 0;
-  
-  if (isLoading && isInitialBoot) {
-    return <Loader />;
-  }
 
   if (fetchError) {
     return <ErrorMessage error={fetchError?.message}>Click to try again</ErrorMessage>;
@@ -41,7 +35,7 @@ function QuestionsPage() {
           <QuestionList
             title={currentSpecTitle}
             questions={questions.data}
-            isLoading={isLoading}
+            isLoading={isQuestionsLoading}
             onOpenFilter={handleOpenFilter}
           />
           <Pagination page={page} totalPages={totalPages} onChange={handlePageChange} />
@@ -52,6 +46,8 @@ function QuestionsPage() {
             skills={skills.data}
             filters={filters}
             onFiltersChange={handleFiltersChange}
+            isSpecializationsLoading={isSpecializationsLoading}
+            isSkillsLoading={isSkillsLoading}
           />
         </div>
       </div>
@@ -72,6 +68,8 @@ function QuestionsPage() {
               onFiltersChange={handleFiltersChange}
               showClose
               onClose={handleCloseFilter}
+              isSpecializationsLoading={isSpecializationsLoading}
+              isSkillsLoading={isSkillsLoading}
             />
           </div>
         </div>

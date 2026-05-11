@@ -1,13 +1,13 @@
 import classes from './QuestionList.module.scss';
 import QuestionItem from '../QuestionItem/QuestionItem.jsx';
 import QuestionListHeader from '../QuestionListHeader/QuestionListHeader.jsx';
-import { SkeletonQuestions } from '../SkeletonQuestions/SkeletonQuestions.jsx';
+import SkeletonQuestionList from '../SkeletonQuestionList/SkeletonQuestionList.jsx';
 
 function QuestionList({ title, questions, isLoading, onOpenFilter }) {
   return (
     <>
       {isLoading ? (
-        <SkeletonQuestions />
+        <SkeletonQuestionList />
       ) : (
         <section>
           <QuestionListHeader title={title} onOpenFilter={onOpenFilter} />
