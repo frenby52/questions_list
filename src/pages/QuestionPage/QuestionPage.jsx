@@ -6,7 +6,7 @@ import QuestionHero from '../../components/QuestionHero/QuestionHero.jsx';
 import QuestionNavigation from '../../components/QuestionNavigation/QuestionNavigation.jsx';
 import QuestionAnswer from '../../components/QuestionAnswer/QuestionAnswer.jsx';
 import QuestionFilters from '../../components/QuestionFilters/QuestionFilters.jsx';
-import Loader from '../../components/Loader/Loader.jsx';
+import SkeletonQuestionPage from '../../components/SkeletonQuestionPage/SkeletonQuestionPage.jsx';
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage.jsx';
 import { useQuestion } from '../../helpers/hooks/useQuestion.js';
 import { useModalState } from '../../helpers/hooks/useModalState.js';
@@ -25,7 +25,7 @@ function QuestionPage() {
     navigate(buildUrl(params, ROUTES.QUESTIONS));
   }, [navigate]);
 
-  if (isLoading) return <Loader />;
+  if (isLoading) return <SkeletonQuestionPage />;
   if (fetchError || !question) {
     return <ErrorMessage message={fetchError?.message}>Вернуться на главную</ErrorMessage>;
   }
