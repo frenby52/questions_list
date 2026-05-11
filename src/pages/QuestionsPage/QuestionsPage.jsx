@@ -26,7 +26,7 @@ function QuestionsPage() {
   const currentSpecTitle = currentSpec ? `Вопросы ${currentSpec.title}` : '';
 
   if (fetchError) {
-    return <ErrorMessage error={fetchError?.message}>Click to try again</ErrorMessage>;
+    return <ErrorMessage message={fetchError?.message}>Click to try again</ErrorMessage>;
   }
 
   return (

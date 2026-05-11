@@ -1,5 +1,5 @@
+import { ARRAY_TYPE_PROPERTIES } from '../../constants/constants.js';
 const API_URL = import.meta.env.VITE_API_URL;
-import { PAGE_SIZE_DEFAULT, ARRAY_TYPE_PROPERTIES } from '../../constants/constants.js';
 
 export const API_ENDPOINTS = {
   QUESTIONS: `/questions/public-questions`,
