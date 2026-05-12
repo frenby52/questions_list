@@ -1,5 +1,4 @@
-import { useCallback } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+
 import classes from './QuestionPage.module.scss';
 import BackLink from '../../components/BackLink/BackLink.jsx';
 import QuestionHero from '../../components/QuestionHero/QuestionHero.jsx';
@@ -10,20 +9,10 @@ import SkeletonQuestionPage from '../../components/SkeletonQuestionPage/Skeleton
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage.jsx';
 import { useQuestion } from '../../helpers/hooks/useQuestion.js';
 import { useModalState } from '../../helpers/hooks/useModalState.js';
-import { ROUTES } from '../../constants/routes.js';
-import { buildUrl } from '../../helpers/utils/api.js';
 
 function QuestionPage() {
-  const { id } = useParams();
-  const navigate = useNavigate();
-  const { question, isLoading, fetchError } = useQuestion(id);
+  const { question, isLoading, fetchError, handleQuestionFilterClick } = useQuestion();
   const [isDetailsOpen, openDetails, closeDetails] = useModalState();
-
-  const handleFilterClick = useCallback((key, value) => {
-    const params = new URLSearchParams();
-    params.set(key, String(value));
-    navigate(buildUrl(params, ROUTES.QUESTIONS));
-  }, [navigate]);
 
   if (isLoading) return <SkeletonQuestionPage />;
   if (fetchError || !question) {
@@ -35,7 +24,6 @@ function QuestionPage() {
       <div className={classes.topBar}>
         <BackLink />
       </div>
-
       <div className={classes.content}>
         <div className={classes.main}>
           <QuestionHero question={question} onOpenDetails={openDetails} />
@@ -43,30 +31,15 @@ function QuestionPage() {
           <QuestionAnswer title="Краткий ответ" content={question.shortAnswer} />
           <QuestionAnswer title="Развёрнутый ответ" content={question.longAnswer} />
         </div>
-
         <div className={classes.sidebar}>
-          <QuestionFilters
-            question={question}
-            onFilterClick={handleFilterClick}
-          />
+          <QuestionFilters question={question} onFilterClick={handleQuestionFilterClick} />
         </div>
       </div>
 
       {isDetailsOpen && (
-        <div
-          className={classes.overlay}
-          onClick={closeDetails}
-        >
-          <div
-            className={classes.overlayInner}
-            onClick={(event) => event.stopPropagation()}
-          >
-            <QuestionFilters
-              question={question}
-              onFilterClick={handleFilterClick}
-              showClose
-              onClose={closeDetails}
-            />
+        <div className={classes.overlay} onClick={closeDetails} >
+          <div className={classes.overlayInner} onClick={(event) => event.stopPropagation()}>
+            <QuestionFilters question={question} onFilterClick={handleQuestionFilterClick} showClose onClose={closeDetails} />
           </div>
         </div>
       )}
