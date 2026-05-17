@@ -12,7 +12,7 @@ export async function apiRequest(url) {
   if (!response.ok) {
     throw new Error(`Ошибка HTTP! Статус: ${response.status}`);
   }
-  return response.json();
+  return await response.json();
 }
 
 export function mapFiltersToParams(filters, page) {
