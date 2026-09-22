@@ -9,7 +9,7 @@ export const router = createBrowserRouter([
     {
       path: ROUTES.INDEX,
       element: <Layout />, 
-      errorElement: <ErrorMessage>Go back to main</ErrorMessage>,
+      errorElement: <ErrorMessage />,
       children: [
         {
           index: true,
@@ -25,7 +25,7 @@ export const router = createBrowserRouter([
         },
         {
           path: ROUTES.NOT_FOUND,
-          element: <ErrorMessage message="Page not found">Go back to main</ErrorMessage>,
+          element: <ErrorMessage message="Page not found" />,
         },
       ],
     },
