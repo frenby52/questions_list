@@ -7,18 +7,10 @@ export const API_ENDPOINTS = {
   SKILLS: `/skills`,
 };
 
-export async function apiRequest(url) {
-  const response = await fetch(`${API_URL}${url}`);
-  if (!response.ok) {
-    throw new Error(`Ошибка HTTP! Статус: ${response.status}`);
-  }
-  return await response.json();
-}
-
-export function mapFiltersToParams(filters, page) {
+export function mapFiltersToParams(filters) {
   const params = new URLSearchParams();
   
-  if (page > 1) params.set('page', String(page));
+  if (filters.page > 1) params.set('page', String(filters.page));
 
   // params.set('limit', String(PAGE_SIZE_DEFAULT));
   
@@ -54,4 +46,20 @@ export function parseArray(searchParams, key) {
 
 export function parseNumberList(searchParams, key) {
   return searchParams.get(key) ? searchParams.get(key).split(',').map((s) => Number(String(s).trim())).filter((n) => !Number.isNaN(n)) : [];
+}
+
+export function getErrorMessage(error) {
+  if (!error) return null;
+
+  if ('status' in error) {
+    if (error.status === 'FETCH_ERROR') return 'Проблема с соединением. Проверьте интернет.';
+    if (error.status === 'PARSING_ERROR') return 'Не удалось обработать ответ сервера.';
+    if (error.status === 404) return 'Данные не найдены.';
+    if (typeof error.status === 'number' && error.status >= 500) {
+      return 'Сервер временно недоступен. Попробуйте позже.';
+    }
+
+    return error.data?.message ?? `Ошибка запроса (${error.status}).`;
+  }
+  return 'Что-то пошло не так.';
 }

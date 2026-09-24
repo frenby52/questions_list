@@ -7,13 +7,13 @@ import QuestionAnswer from '../../components/QuestionAnswer/QuestionAnswer.jsx';
 import QuestionFilters from '../../components/QuestionFilters/QuestionFilters.jsx';
 import SkeletonQuestionPage from '../../components/SkeletonQuestionPage/SkeletonQuestionPage.jsx';
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage.jsx';
-// import { useQuestion } from '../../helpers/hooks/useQuestion.js';
 import { useModalState } from '../../helpers/hooks/useModalState.js';
 import { useParams } from 'react-router-dom';
 import { useGetQuestionQuery } from '../../store/services/questionsApi.ts';
+import { getErrorMessage } from '../../helpers/utils/api.js';
 
 function QuestionPage() {
-  // const { question, isLoading, fetchError, handleQuestionFilterClick } = useQuestion();
+
   const { id } = useParams();
   const { data: question, isLoading, error } = useGetQuestionQuery(Number(id), {
     skip: !id,
@@ -21,8 +21,8 @@ function QuestionPage() {
   const [isDetailsOpen, openDetails, closeDetails] = useModalState();
 
   if (isLoading) return <SkeletonQuestionPage />;
-  if (error || !question) {
-    return <ErrorMessage message={error?.message} linkText="Вернуться на главную" />;
+  if (error) {
+    return <ErrorMessage message={getErrorMessage(error)} />;
   }
 
   return (

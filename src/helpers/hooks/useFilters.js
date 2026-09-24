@@ -32,7 +32,7 @@ export const useFilters = () => {
   const debouncedSearch = useDebounce(filters.search, SEARCH_DEBOUNCE_MS);
 
   useEffect(() => {
-    const params = mapFiltersToParams({ ...filters, search: debouncedSearch }, page);
+    const params = mapFiltersToParams({ ...filters, search: debouncedSearch, page });
     setSearchParams(params, { replace: true });
   }, [filters, debouncedSearch, page, setSearchParams]);
 

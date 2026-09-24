@@ -25,7 +25,7 @@ export const router = createBrowserRouter([
         },
         {
           path: ROUTES.NOT_FOUND,
-          element: <ErrorMessage message="Page not found" />,
+          element: <ErrorMessage message="Страница не найдена" />,
         },
       ],
     },
