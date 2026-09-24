@@ -1,4 +1,4 @@
-import { useMemo, useEffect } from 'react';
+import { useMemo } from 'react';
 import classes from './QuestionsPage.module.scss';
 import QuestionList from '../../components/QuestionList/QuestionList.jsx';
 import QuestionsFilters from '../../components/QuestionsFilters/QuestionsFilters.jsx';
@@ -11,31 +11,13 @@ import QuestionListHeader from '../../components/QuestionListHeader/QuestionList
 import { useGetSpecializationsQuery, useGetSkillsQuery, useGetQuestionsQuery } from '../../store/services/questionsApi.ts';
 import { skipToken } from '@reduxjs/toolkit/query';
 import { getErrorMessage } from '../../helpers/utils/api.js';
+import { useInitialSpecResolve } from '../../helpers/hooks/useInitialSpecResolve.js';
 
 function QuestionsPage() {
   const [isFilterOpen, handleOpenFilter, handleCloseFilter] = useModalState();
   const [filters, setFilters, page, debouncedSearch, handlePageChange, handleFiltersChange] = useFilters();
-
   const { data: specializations, isLoading: isSpecializationsLoading, error: specializationsError } = useGetSpecializationsQuery();
-
-  const shouldResolveInitialSpec = useMemo(
-    () =>
-      !filters.specializationId &&
-      filters.search.trim() === '' &&
-      filters.skills.length === 0 &&
-      filters.keywords.length === 0 &&
-      filters.complexity.length === 0 &&
-      filters.rate.length === 0,
-    [filters]
-  );
-
-  useEffect(() => {
-    if (!shouldResolveInitialSpec) return;       
-    if (!specializations || specializations?.data?.length === 0) return;  
-    setFilters((prev) => ({ ...prev, specializationId: specializations.data[0]?.id }));
-  }, [specializations, setFilters, shouldResolveInitialSpec]);
-
-
+  const shouldResolveInitialSpec = useInitialSpecResolve(filters, specializations, setFilters);
   const { data: skills, isLoading: isSkillsLoading } = useGetSkillsQuery(
     filters.specializationId ?? skipToken
   );
@@ -86,10 +68,10 @@ function QuestionsPage() {
               skills={skills?.data ?? []}
               filters={filters}
               onFiltersChange={handleFiltersChange}
-              showClose
-              onClose={handleCloseFilter}
               isSpecializationsLoading={isSpecializationsLoading}
               isSkillsLoading={isSkillsLoading}
+              showClose
+              onClose={handleCloseFilter}
             />
           </div>
         </div>

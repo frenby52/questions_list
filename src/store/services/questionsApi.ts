@@ -83,7 +83,7 @@ export const questionsApi = createApi({
             providesTags: (result) =>
                 result
                     ? [...result.data.map((q) => ({ type: 'Question' as const, id: q.id })),
-                        { type: 'Questions' as const, id: 'LIST' },]
+                    { type: 'Questions' as const, id: 'LIST' },]
                     : [{ type: 'Questions' as const, id: 'LIST' }],
         }),
         getQuestion: builder.query<Question, number>({
@@ -102,9 +102,12 @@ export const questionsApi = createApi({
             },
         }),
         getSkills: builder.query<Paginated<Skill>, number>({
-            query: (specializationId) => `${API_ENDPOINTS.SKILLS}?specializations=${specializationId}`,
+            query: (specializationId) => ({
+                url: API_ENDPOINTS.SKILLS,
+                params: { specializations: specializationId },
+            }),
         }),
     }),
 });
 
-export const {useGetQuestionsQuery, useGetQuestionQuery, useGetSpecializationsQuery, useGetSkillsQuery} = questionsApi;
+export const { useGetQuestionsQuery, useGetQuestionQuery, useGetSpecializationsQuery, useGetSkillsQuery } = questionsApi;
