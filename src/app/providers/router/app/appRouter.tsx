@@ -3,7 +3,7 @@ import Layout from '@/components/Layout/Layout.jsx';
 import QuestionsPage from '@/pages/QuestionsPage/QuestionsPage.jsx';
 import QuestionPage from '@/pages/QuestionPage/QuestionPage.jsx';
 import ErrorMessage from '@/components/ErrorMessage/ErrorMessage.jsx';
-import { ROUTES } from '@/constants/routes.ts';
+import { ROUTES } from '@/app/providers/router/config/routes';
 
 export const router = createBrowserRouter([
     {

@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import classes from './BackLink.module.scss';
-import arrowLeftIcon from '../../assets/icons/arrow-left.svg';
+import arrowLeftIcon from '@/shared/assets/icons/arrow-left.svg';
 
 function BackLink({ label = 'Назад' }) {
   const navigate = useNavigate();

@@ -6,7 +6,7 @@ import FiltersContainer from '../FiltersContainer/FiltersContainer.jsx';
 import { useNavigate } from 'react-router-dom';
 import { useCallback } from 'react';
 import { buildUrl } from '../../helpers/utils/api.js';
-import { ROUTES } from '../../constants/routes.js';
+import { ROUTES } from '../../app/providers/router/config/routes.js';
 
 function QuestionFilters({ question, showClose = false, onClose }) {
   const { complexity = 0, rate = 0, questionSkills = [], keywords = [] } = question;

@@ -1,6 +1,6 @@
 import classes from './Pagination.module.scss';
-import arrowLeftIcon from '../../assets/icons/arrow-left.svg';
-import arrowRightIcon from '../../assets/icons/arrow-right.svg';
+import arrowLeftIcon from '@/shared/assets/icons/arrow-left.svg';  
+import arrowRightIcon from '@/shared/assets/icons/arrow-right.svg';
 import { getPages } from '../../helpers/utils/utils.js';
 import { useMemo } from 'react';
 

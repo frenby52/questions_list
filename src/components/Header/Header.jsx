@@ -1,8 +1,8 @@
 import classes from './Header.module.scss';
-import logoIcon from '../../assets/icons/logo.svg';
-import chevronDownIcon from '../../assets/icons/chevron-down.svg';
-import menuIcon from '../../assets/icons/menu.svg';
-import { NAV_LINKS } from '../../constants/constants.js';
+import logoIcon from '@/shared/assets/icons/logo.svg';
+import chevronDownIcon from '@/shared/assets/icons/chevron-down.svg';
+import menuIcon from '@/shared/assets/icons/menu.svg';
+import { NAV_LINKS } from '../../shared/constants/constants.js';
 import { useMenu } from '../../helpers/hooks/useMenu.js';
 
 function Header() {

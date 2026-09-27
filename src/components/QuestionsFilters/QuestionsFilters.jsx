@@ -2,7 +2,7 @@ import { useState, useMemo } from 'react';
 import SearchInput from '../SearchInput/SearchInput.jsx';
 import FilterGroup from '../FilterGroup/FilterGroup.jsx';
 import FilterChip from '../FilterChip/FilterChip.jsx';
-import { COMPLEXITY_OPTIONS, RATE_OPTIONS, STATUS_OPTIONS, COLLAPSED_SPECS_COUNT, COLLAPSED_SKILLS_COUNT } from '../../constants/constants.js';
+import { COMPLEXITY_OPTIONS, RATE_OPTIONS, STATUS_OPTIONS, COLLAPSED_SPECS_COUNT, COLLAPSED_SKILLS_COUNT } from '../../shared/constants/constants.js';
 import FiltersContainer from '../FiltersContainer/FiltersContainer.jsx';
 import SkeletonQuestionsFilters from '../SkeletonQuestionsFilters/SkeletonQuestionsFilters.jsx';
 import SkeletonQuestionsFiltersAfterSpecs from '../SkeletonQuestionsFiltersAfterSpecs/SkeletonQuestionsFiltersAfterSpecs.jsx';

@@ -1,5 +1,5 @@
 import classes from './QuestionHero.module.scss';
-import filterIcon from '../../assets/icons/filter.svg';
+import filterIcon from '@/shared/assets/icons/filter.svg';
 
 function QuestionHero({ question, onOpenDetails }) {
   const { title, description, imageSrc } = question;

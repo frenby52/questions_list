@@ -9,7 +9,7 @@ import SkeletonQuestionPage from '../../components/SkeletonQuestionPage/Skeleton
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage.jsx';
 import { useModalState } from '../../helpers/hooks/useModalState.js';
 import { useParams } from 'react-router-dom';
-import { useGetQuestionQuery } from '../../store/services/questionsApi.ts';
+import { useGetQuestionQuery } from '@/entities/question/api/questionApi.ts';
 import { getErrorMessage } from '../../helpers/utils/api.js';
 
 function QuestionPage() {

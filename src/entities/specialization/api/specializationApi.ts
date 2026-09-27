@@ -1,6 +1,5 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { mapFiltersToParams } from '../../helpers/utils/api.js';
-import { API_ENDPOINTS } from '../../helpers/utils/api.js';
+import { baseApi } from '@/shared/api/baseApi';
+
 export interface Paginated<T> {
     data: T[];
     page: number;
@@ -70,44 +69,20 @@ export type QuestionsQueryArgs = Partial<Filters> & {
     page?: number;
 };
 
-export const questionsApi = createApi({
-    reducerPath: 'questionsApi',
-    baseQuery: fetchBaseQuery({ baseUrl: import.meta.env.VITE_API_URL }),
-    tagTypes: ['Questions', 'Question'],
+export const specializationApi = baseApi.injectEndpoints({
     endpoints: (builder) => ({
-        getQuestions: builder.query<Paginated<Question>, QuestionsQueryArgs>({
-            query: (filters) => ({
-                url: API_ENDPOINTS.QUESTIONS,
-                params: mapFiltersToParams(filters),
-            }),
-            providesTags: (result) =>
-                result
-                    ? [...result.data.map((q) => ({ type: 'Question' as const, id: q.id })),
-                    { type: 'Questions' as const, id: 'LIST' },]
-                    : [{ type: 'Questions' as const, id: 'LIST' }],
-        }),
-        getQuestion: builder.query<Question, number>({
-            query: (id) => `${API_ENDPOINTS.QUESTIONS}/${id}`,
-            providesTags: (_result, _error, id) => [{ type: 'Question', id }],
-        }),
         getSpecializations: builder.query<Paginated<Specialization>, void>({
             async queryFn(_arg, _api, _extra, baseQuery) {
-                const first = await baseQuery(API_ENDPOINTS.SPECIALIZATIONS);
+                const first = await baseQuery(`/specializations`);
                 if (first.error) return { error: first.error };
                 const total = (first.data as Paginated<Specialization>).total;
-                const full = await baseQuery(`${API_ENDPOINTS.SPECIALIZATIONS}?limit=${total}`);
+                const full = await baseQuery(`/specializations?limit=${total}`);
                 return full.error
                     ? { error: full.error }
                     : { data: full.data as Paginated<Specialization> };
             },
         }),
-        getSkills: builder.query<Paginated<Skill>, number>({
-            query: (specializationId) => ({
-                url: API_ENDPOINTS.SKILLS,
-                params: { specializations: specializationId },
-            }),
-        }),
     }),
 });
 
-export const { useGetQuestionsQuery, useGetQuestionQuery, useGetSpecializationsQuery, useGetSkillsQuery } = questionsApi;
+export const { useGetSpecializationsQuery } = specializationApi;

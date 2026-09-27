@@ -1,5 +1,5 @@
 import classes from './FiltersContainer.module.scss';
-import closeIcon from '../../assets/icons/close.svg';
+import closeIcon from '@/shared/assets/icons/close.svg';
 
 function FiltersContainer({ children, showClose = false, onClose }) {
 

@@ -1,5 +1,5 @@
 import classes from './QuestionListHeader.module.scss';
-import filterIcon from '../../assets/icons/filter.svg';
+import filterIcon from '@/shared/assets/icons/filter.svg';
 
 const QuestionListHeader = ({ title, onOpenFilter }) => {
     return (

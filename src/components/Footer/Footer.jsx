@@ -1,5 +1,5 @@
 import classes from './Footer.module.scss';
-import { SOCIALS_ITEMS } from '../../constants/constants.js';
+import { SOCIALS_ITEMS } from '../../shared/constants/constants.js';
 
 function Footer() {
   return (

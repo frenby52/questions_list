@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import classes from './QuestionItem.module.scss';
-import chevronDownIcon from '../../assets/icons/chevron-down-brand.svg';
-import kebabIcon from '../../assets/icons/kebab.svg';
+import chevronDownIcon from '@/shared/assets/icons/chevron-down-brand.svg';
+import kebabIcon from '@/shared/assets/icons/kebab.svg';
 import ContentRenderer from '../ContentRenderer/ContentRenderer.jsx';
 import { useMenu } from '../../helpers/hooks/useMenu.js';
-import { ROUTES } from '../../constants/routes.js';
+import { ROUTES } from '../../app/providers/router/config/routes.js';
 import { useNavigate } from 'react-router-dom';
 import QuestionMenu from '../QuestionMenu/QuestionMenu.jsx';
 import MetaPill from '../MetaPill/MetaPill.jsx';

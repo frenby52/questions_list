@@ -1,5 +1,5 @@
 import classes from './SearchInput.module.scss';
-import searchIcon from '../../assets/icons/search.svg';
+import searchIcon from '@/shared/assets/icons/search.svg';
 
 function SearchInput({ value, onChange }) {
   return (

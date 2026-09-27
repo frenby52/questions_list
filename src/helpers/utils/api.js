@@ -1,11 +1,11 @@
-import { ARRAY_TYPE_PROPERTIES } from '../../constants/constants.js';
-const API_URL = import.meta.env.VITE_API_URL;
+import { ARRAY_TYPE_PROPERTIES } from '../../shared/constants/constants.js';
+// const API_URL = import.meta.env.VITE_API_URL;
 
-export const API_ENDPOINTS = {
-  QUESTIONS: `/questions/public-questions`,
-  SPECIALIZATIONS: `/specializations`,
-  SKILLS: `/skills`,
-};
+// export const API_ENDPOINTS = {
+//   QUESTIONS: `/questions/public-questions`,
+//   SPECIALIZATIONS: `/specializations`,
+//   SKILLS: `/skills`,
+// };
 
 export function mapFiltersToParams(filters) {
   const params = new URLSearchParams();

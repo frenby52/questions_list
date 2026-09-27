@@ -1,5 +1,5 @@
 import classes from './QuestionMenu.module.scss';
-import { MENU_ITEMS } from '../../constants/constants.js';
+import { MENU_ITEMS } from '../../shared/constants/constants.js';
 
 const QuestionMenu = ({ handleMenuItemClick }) => {
     return (

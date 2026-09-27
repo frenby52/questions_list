@@ -1,5 +1,5 @@
 import { useState, useCallback, useEffect } from 'react';
-import { ARRAY_TYPE_PROPERTIES, SEARCH_DEBOUNCE_MS } from '../../constants/constants.js';
+import { ARRAY_TYPE_PROPERTIES, SEARCH_DEBOUNCE_MS } from '../../shared/constants/constants.js';
 import { toggleInArray, toggleComplexity } from '../utils/utils.js';
 import { useSearchParams } from 'react-router-dom';
 import { parseArray, parseNumberList, mapFiltersToParams } from '../utils/api.js';

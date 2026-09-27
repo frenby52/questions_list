@@ -1,6 +1,6 @@
 import classes from './ErrorMessage.module.scss';
 import { Link } from 'react-router-dom';
-import { ROUTES } from '../../constants/routes.js';
+import { ROUTES } from '../../app/providers/router/config/routes.js';
 
 function ErrorMessage({ message, link = ROUTES.INDEX,  linkText = 'Вернуться на главную', refetch = null }) {
   return (
