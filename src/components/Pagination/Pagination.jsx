@@ -1,7 +1,7 @@
 import classes from './Pagination.module.scss';
 import arrowLeftIcon from '@/shared/assets/icons/arrow-left.svg';  
 import arrowRightIcon from '@/shared/assets/icons/arrow-right.svg';
-import { getPages } from '../../helpers/utils/utils.js';
+import { getPages } from '../../shared/helpers/helpers.js';
 import { useMemo } from 'react';
 
 function Pagination({ page, totalPages, onChange }) {

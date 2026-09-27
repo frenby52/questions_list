@@ -5,7 +5,7 @@ import FilterGroup from '../FilterGroup/FilterGroup.jsx';
 import FiltersContainer from '../FiltersContainer/FiltersContainer.jsx';
 import { useNavigate } from 'react-router-dom';
 import { useCallback } from 'react';
-import { buildUrl } from '../../helpers/utils/api.js';
+import { buildUrl } from '../../shared/helpers/helpers.js';
 import { ROUTES } from '../../app/providers/router/config/routes.js';
 
 function QuestionFilters({ question, showClose = false, onClose }) {

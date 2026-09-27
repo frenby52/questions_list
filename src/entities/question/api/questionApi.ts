@@ -1,4 +1,4 @@
-import { mapFiltersToParams } from '@/helpers/utils/api.js';
+import { mapFiltersToParams } from '@/shared/helpers/helpers.js';
 import { baseApi } from '@/shared/api/baseApi';
 
 export interface Paginated<T> {

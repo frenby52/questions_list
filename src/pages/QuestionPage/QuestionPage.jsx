@@ -7,10 +7,10 @@ import QuestionAnswer from '../../components/QuestionAnswer/QuestionAnswer.jsx';
 import QuestionFilters from '../../components/QuestionFilters/QuestionFilters.jsx';
 import SkeletonQuestionPage from '../../components/SkeletonQuestionPage/SkeletonQuestionPage.jsx';
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage.jsx';
-import { useModalState } from '../../helpers/hooks/useModalState.js';
+import { useModalState } from '../../shared/hooks/useModalState.js';
 import { useParams } from 'react-router-dom';
 import { useGetQuestionQuery } from '@/entities/question/api/questionApi.ts';
-import { getErrorMessage } from '../../helpers/utils/api.js';
+import { getErrorMessage } from '../../shared/helpers/helpers.js';
 
 function QuestionPage() {
 

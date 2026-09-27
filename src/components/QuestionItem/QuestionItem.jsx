@@ -3,7 +3,7 @@ import classes from './QuestionItem.module.scss';
 import chevronDownIcon from '@/shared/assets/icons/chevron-down-brand.svg';
 import kebabIcon from '@/shared/assets/icons/kebab.svg';
 import ContentRenderer from '../ContentRenderer/ContentRenderer.jsx';
-import { useMenu } from '../../helpers/hooks/useMenu.js';
+import { useMenu } from '../../shared/hooks/useMenu.js';
 import { ROUTES } from '../../app/providers/router/config/routes.js';
 import { useNavigate } from 'react-router-dom';
 import QuestionMenu from '../QuestionMenu/QuestionMenu.jsx';

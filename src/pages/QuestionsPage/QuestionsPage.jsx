@@ -4,16 +4,16 @@ import QuestionList from '../../components/QuestionList/QuestionList.jsx';
 import QuestionsFilters from '../../components/QuestionsFilters/QuestionsFilters.jsx';
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage.jsx';
 import { PAGE_SIZE_DEFAULT } from '../../shared/constants/constants.js';
-import { useFilters } from '../../helpers/hooks/useFilters.js';
-import { useModalState } from '../../helpers/hooks/useModalState.js';
+import { useFilters } from '../../shared/hooks/useFilters.js';
+import { useModalState } from '../../shared/hooks/useModalState.js';
 import Pagination from '../../components/Pagination/Pagination.jsx';
 import QuestionListHeader from '../../components/QuestionListHeader/QuestionListHeader.jsx'; 
 import { useGetSpecializationsQuery } from '@/entities/specialization/api/specializationApi.ts';
 import { useGetSkillsQuery } from '@/entities/skill/api/skillApi.ts';
 import { useGetQuestionsQuery } from '@/entities/question/api/questionApi.ts';
 import { skipToken } from '@reduxjs/toolkit/query';
-import { getErrorMessage } from '../../helpers/utils/api.js';
-import { useInitialSpecResolve } from '../../helpers/hooks/useInitialSpecResolve.js';
+import { getErrorMessage } from '../../shared/helpers/helpers.js';
+import { useInitialSpecResolve } from '../../shared/hooks/useInitialSpecResolve.js';
 
 function QuestionsPage() {
   const [isFilterOpen, handleOpenFilter, handleCloseFilter] = useModalState();
