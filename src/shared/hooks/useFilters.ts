@@ -1,10 +1,11 @@
 import { useState, useCallback, useEffect } from 'react';
-import { ARRAY_TYPE_PROPERTIES, SEARCH_DEBOUNCE_MS } from '../constants/constants.js';
+import { ARRAY_TYPE_PROPERTIES, SEARCH_DEBOUNCE_MS } from '../constants/constants';
 import { useSearchParams } from 'react-router-dom';
 import { toggleInArray, toggleComplexity, parseArray, parseNumberList, mapFiltersToParams } from '../helpers/helpers.js';
 import { useDebounce } from './useDebounce.js';
+import type { Filters } from '@/shared/api/types';
 
-const defaultFilters = {
+const defaultFilters: Filters = {
   search: '',
   specializationId: null,
   skills: [],
@@ -17,7 +18,7 @@ const defaultFilters = {
 export const useFilters = () => {
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const [filters, setFilters] = useState({
+  const [filters, setFilters] = useState<Filters>({
     search: searchParams.get('titleOrDescription') || defaultFilters.search,
     specializationId: Number(searchParams.get('specializationId')) || defaultFilters.specializationId,
     skills: parseNumberList(searchParams, 'skills'),
@@ -40,7 +41,7 @@ export const useFilters = () => {
 
     setFilters((prevFilters) => {
       if (key === 'specializationId') {
-        return { ...defaultFilters, [key]: newValue };
+        return { ...defaultFilters, [key]: Number(newValue) };
       }
       if (key === 'complexity') {
         return { ...prevFilters, complexity: toggleComplexity(prevFilters.complexity, newValue) };
@@ -54,7 +55,7 @@ export const useFilters = () => {
     setPage(1);
   }, []);
 
-  const handlePageChange = useCallback((nextPage) => setPage(nextPage), []);
+  const handlePageChange = useCallback((nextPage: number) => setPage(nextPage), []);
 
   return [filters, setFilters, page, debouncedSearch, handlePageChange, handleFiltersChange];
 };

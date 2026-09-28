@@ -8,10 +8,9 @@ import { useFilters } from '../../shared/hooks/useFilters.js';
 import { useModalState } from '../../shared/hooks/useModalState.js';
 import Pagination from '../../components/Pagination/Pagination.jsx';
 import QuestionListHeader from '../../components/QuestionListHeader/QuestionListHeader.jsx'; 
-import { useGetSpecializationsQuery } from '@/entities/specialization/api/specializationApi.ts';
-import { useGetSkillsQuery } from '@/entities/skill/api/skillApi.ts';
-import { useGetQuestionsQuery } from '@/entities/question/api/questionApi.ts';
-import { skipToken } from '@reduxjs/toolkit/query';
+import { useGetSpecializationsQuery } from '@/entities/specialization';
+import { useGetSkillsQuery } from '@/entities/skill';
+import { useGetQuestionsQuery } from '@/entities/question';
 import { getErrorMessage } from '../../shared/helpers/helpers.js';
 import { useInitialSpecResolve } from '../../shared/hooks/useInitialSpecResolve.js';
 
@@ -21,7 +20,8 @@ function QuestionsPage() {
   const { data: specializations, isLoading: isSpecializationsLoading, error: specializationsError } = useGetSpecializationsQuery();
   const shouldResolveInitialSpec = useInitialSpecResolve(filters, specializations, setFilters);
   const { data: skills, isLoading: isSkillsLoading } = useGetSkillsQuery(
-    filters.specializationId ?? skipToken
+    { specializations: [filters.specializationId] },
+    { skip: !filters.specializationId}
   );
 
   const shouldSkipQuestions = shouldResolveInitialSpec && !specializationsError;

@@ -1,4 +1,4 @@
-import { ARRAY_TYPE_PROPERTIES } from '../constants/constants.js';
+import { ARRAY_TYPE_PROPERTIES } from '@/shared/constants/constants';
 
 export function mapFiltersToParams(filters) {
   const params = new URLSearchParams();
