@@ -1,12 +1,11 @@
 
 import classes from './QuestionPage.module.scss';
-import BackLink from '../../components/BackLink/BackLink.jsx';
+import { BackLink, ErrorMessage } from '@/shared/ui';
 import QuestionHero from '../../components/QuestionHero/QuestionHero.jsx';
 import QuestionNavigation from '../../components/QuestionNavigation/QuestionNavigation.jsx';
 import QuestionAnswer from '../../components/QuestionAnswer/QuestionAnswer.jsx';
 import QuestionFilters from '../../components/QuestionFilters/QuestionFilters.jsx';
 import SkeletonQuestionPage from '../../components/SkeletonQuestionPage/SkeletonQuestionPage.jsx';
-import ErrorMessage from '../../components/ErrorMessage/ErrorMessage.jsx';
 import { useModalState } from '../../shared/hooks/useModalState.js';
 import { useParams } from 'react-router-dom';
 import { useGetQuestionQuery } from '@/entities/question';

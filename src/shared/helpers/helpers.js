@@ -74,6 +74,7 @@ export function getPages(total, current) {
   for (let i = start; i <= end; i++) pages.push(i);
   if (current < total - 2) pages.push('…');
   pages.push(total);
+  
   return pages;
 }
 

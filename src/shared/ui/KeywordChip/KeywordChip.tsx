@@ -1,6 +1,11 @@
 import classes from './KeywordChip.module.scss';
 
-function KeywordChip({ keyword, onClick }) {
+interface KeywordChipProps {
+  keyword: string;
+  onClick?: () => void;
+}
+
+export function KeywordChip({ keyword, onClick }: KeywordChipProps) {
   return (
     <button
       type="button"
@@ -11,5 +16,3 @@ function KeywordChip({ keyword, onClick }) {
     </button>
   );
 }
-
-export default KeywordChip;

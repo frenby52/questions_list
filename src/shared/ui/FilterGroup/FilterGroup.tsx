@@ -1,6 +1,14 @@
+import type { ReactNode } from 'react';
 import classes from './FilterGroup.module.scss';
 
-function FilterGroup({ title, children, showMoreLabel, onShowMore }) {
+interface FilterGroupProps {
+  title: ReactNode;
+  children: ReactNode;
+  showMoreLabel?: string | null;
+  onShowMore?: () => void;
+}
+
+export function FilterGroup({ title, children, showMoreLabel, onShowMore }: FilterGroupProps) {
   return (
     <div className={classes.group}>
       <h3 className={classes.title}>{title}</h3>
@@ -13,5 +21,3 @@ function FilterGroup({ title, children, showMoreLabel, onShowMore }) {
     </div>
   );
 }
-
-export default FilterGroup;

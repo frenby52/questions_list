@@ -1,9 +1,6 @@
 import { useState, useMemo } from 'react';
-import SearchInput from '../SearchInput/SearchInput.jsx';
-import FilterGroup from '../FilterGroup/FilterGroup.jsx';
-import FilterChip from '../FilterChip/FilterChip.jsx';
+import { SearchInput, FilterGroup, FilterChip, SideBar } from '@/shared/ui';
 import { COMPLEXITY_OPTIONS, RATE_OPTIONS, STATUS_OPTIONS, COLLAPSED_SPECS_COUNT, COLLAPSED_SKILLS_COUNT } from '../../shared/constants/constants.js';
-import FiltersContainer from '../FiltersContainer/FiltersContainer.jsx';
 import SkeletonQuestionsFilters from '../SkeletonQuestionsFilters/SkeletonQuestionsFilters.jsx';
 import SkeletonQuestionsFiltersAfterSpecs from '../SkeletonQuestionsFiltersAfterSpecs/SkeletonQuestionsFiltersAfterSpecs.jsx';
 
@@ -30,14 +27,14 @@ function QuestionsFilters({ specializations, skills, filters, onFiltersChange, o
 
   if (isSpecializationsLoading) {
     return (
-      <FiltersContainer showClose={showClose} onClose={onClose}>
+      <SideBar showClose={showClose} onClose={onClose}>
         <SkeletonQuestionsFilters />
-      </FiltersContainer>
+      </SideBar>
     );
   }
 
   return (
-    <FiltersContainer showClose={showClose} onClose={onClose}>
+    <SideBar showClose={showClose} onClose={onClose}>
       <SearchInput
         value={filters.search}
         onChange={(query) => onFiltersChange('search', query)}
@@ -118,7 +115,7 @@ function QuestionsFilters({ specializations, skills, filters, onFiltersChange, o
           </FilterGroup>
         </>
       )}
-    </FiltersContainer>
+    </SideBar>
   );
 }
 

@@ -1,5 +1,5 @@
 import classes from './QuestionAnswer.module.scss';
-import ContentRenderer from '../ContentRenderer/ContentRenderer.jsx';
+import { ContentRenderer } from '@/shared/ui';
 
 function QuestionAnswer({ title, content }) {
   return (

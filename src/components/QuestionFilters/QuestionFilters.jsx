@@ -1,8 +1,4 @@
-import MetaPill from '../MetaPill/MetaPill.jsx';
-import FilterChip from '../FilterChip/FilterChip.jsx';
-import KeywordChip from '../KeywordChip/KeywordChip.jsx';
-import FilterGroup from '../FilterGroup/FilterGroup.jsx';
-import FiltersContainer from '../FiltersContainer/FiltersContainer.jsx';
+import { MetaPill, FilterChip, KeywordChip, FilterGroup, SideBar } from '@/shared/ui';
 import { useNavigate } from 'react-router-dom';
 import { useCallback } from 'react';
 import { buildUrl } from '../../shared/helpers/helpers.js';
@@ -18,7 +14,7 @@ function QuestionFilters({ question, showClose = false, onClose }) {
   }, [navigate]);
 
   return (
-    <FiltersContainer showClose={showClose} onClose={onClose}>
+    <SideBar showClose={showClose} onClose={onClose}>
       <FilterGroup title="Уровень:" >
         <MetaPill label="Сложность:" value={complexity} />
         <MetaPill label="Рейтинг:" value={rate} />
@@ -43,7 +39,7 @@ function QuestionFilters({ question, showClose = false, onClose }) {
           ))}
         </FilterGroup>
       )}
-    </FiltersContainer>
+    </SideBar>
   );
 }
 

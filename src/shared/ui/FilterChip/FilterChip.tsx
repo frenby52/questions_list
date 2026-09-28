@@ -1,20 +1,25 @@
+import type { SyntheticEvent } from 'react';
 import classes from './FilterChip.module.scss';
 
-function FilterChip({
-  label,
-  iconSrc,
-  isActive = false,
-  variant = 'default',
-  onClick,
-}) {
+type FilterChipVariant = 'default' | 'compact';
+
+interface FilterChipProps {
+  label: string;
+  iconSrc?: string;
+  isActive?: boolean;
+  variant?: FilterChipVariant;
+  onClick?: () => void;
+}
+
+export function FilterChip({label, iconSrc, isActive = false, variant = 'default', onClick}: FilterChipProps) {
   const variantClass = variant === 'compact' ? classes.compact : classes.default;
   const activeClass = isActive ? classes.active : '';
 
-  const handleIconError = (event) => {
+  const handleIconError = (event: SyntheticEvent<HTMLImageElement>) => {
     event.currentTarget.style.visibility = 'hidden';
   };
 
-  const handleIconLoad = (event) => {
+  const handleIconLoad = (event: SyntheticEvent<HTMLImageElement>) => {
     event.currentTarget.style.visibility = 'visible';
   };
 
@@ -39,5 +44,3 @@ function FilterChip({
     </button>
   );
 }
-
-export default FilterChip;

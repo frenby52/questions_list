@@ -1,15 +1,21 @@
-import classes from './Pagination.module.scss';
-import arrowLeftIcon from '@/shared/assets/icons/arrow-left.svg';  
-import arrowRightIcon from '@/shared/assets/icons/arrow-right.svg';
-import { getPages } from '../../shared/helpers/helpers.js';
 import { useMemo } from 'react';
+import classes from './Pagination.module.scss';
+import arrowLeftIcon from '@/shared/assets/icons/arrow-left.svg';
+import arrowRightIcon from '@/shared/assets/icons/arrow-right.svg';
+import { getPages } from '@/shared/helpers/helpers';
 
-function Pagination({ page, totalPages, onChange }) {
+interface PaginationProps {
+  page: number;
+  totalPages: number;
+  onChange: (page: number) => void;
+}
+
+export function Pagination({ page, totalPages, onChange }: PaginationProps) {
   const pages = useMemo(() => getPages(totalPages, page), [totalPages, page]);
-  
+
   if (totalPages <= 1) return null;
- 
-  const handlePageChange = (target) => {
+
+  const handlePageChange = (target: number | string) => {
     if (typeof target !== 'number') return;
     if (target < 1 || target > totalPages || target === page) return;
     onChange(target);
@@ -27,7 +33,7 @@ function Pagination({ page, totalPages, onChange }) {
       </button>
 
       <ul className={classes.list}>
-        {pages.map((pageNumber, index) => (
+        {pages.map((pageNumber: number | string, index: number) => (
           <li key={`${pageNumber}-${index}`}>
             {pageNumber === '…' ? (
               <span className={classes.dots}>…</span>
@@ -47,7 +53,7 @@ function Pagination({ page, totalPages, onChange }) {
       <button
         type="button"
         className={classes.arrow}
-        disabled={page >= totalPages} 
+        disabled={page >= totalPages}
         onClick={() => handlePageChange(page + 1)}
       >
         <img src={arrowRightIcon} alt="" width={28} height={28} />
@@ -55,5 +61,3 @@ function Pagination({ page, totalPages, onChange }) {
     </nav>
   );
 }
-
-export default Pagination;

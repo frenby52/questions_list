@@ -1,7 +1,12 @@
 import classes from './SearchInput.module.scss';
 import searchIcon from '@/shared/assets/icons/search.svg';
 
-function SearchInput({ value, onChange }) {
+interface SearchInputProps {
+  value: string;
+  onChange: (value: string) => void;
+}
+
+export function SearchInput({ value, onChange }: SearchInputProps) {
   return (
     <label className={classes.wrapper}>
       <img className={classes.icon} src={searchIcon} alt="" width={20} height={20} />
@@ -15,5 +20,3 @@ function SearchInput({ value, onChange }) {
     </label>
   );
 }
-
-export default SearchInput;

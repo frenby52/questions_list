@@ -2,7 +2,11 @@ import ReactMarkdown from 'react-markdown';
 import rehypeRaw from 'rehype-raw';
 import DOMPurify from 'dompurify';
 
-const ContentRenderer = ({ content }) => {
+interface ContentRendererProps {
+  content?: string | null;
+}
+
+export function ContentRenderer({ content }: ContentRendererProps) {
   if (!content || typeof content !== 'string') return null;
   const sanitized = DOMPurify.sanitize(content, { ADD_ATTR: ['style'] });
 
@@ -11,6 +15,4 @@ const ContentRenderer = ({ content }) => {
       {sanitized}
     </ReactMarkdown>
   );
-};
-
-export default ContentRenderer;
+}

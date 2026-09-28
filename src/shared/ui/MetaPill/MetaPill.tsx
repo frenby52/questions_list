@@ -1,6 +1,12 @@
+import type { ReactNode } from 'react';
 import classes from './MetaPill.module.scss';
 
-function MetaPill({ label, value }) {
+interface MetaPillProps {
+  label: ReactNode;
+  value: ReactNode;
+}
+
+export function MetaPill({ label, value }: MetaPillProps) {
   return (
     <span className={classes.pill}>
       <span className={classes.label}>{label}</span>
@@ -8,5 +14,3 @@ function MetaPill({ label, value }) {
     </span>
   );
 }
-
-export default MetaPill;

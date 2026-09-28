@@ -2,7 +2,11 @@ import { useNavigate } from 'react-router-dom';
 import classes from './BackLink.module.scss';
 import arrowLeftIcon from '@/shared/assets/icons/arrow-left.svg';
 
-function BackLink({ label = 'Назад' }) {
+interface BackLinkProps {
+  label?: string;
+}
+
+export function BackLink({ label = 'Назад' }: BackLinkProps) {
   const navigate = useNavigate();
 
   return (
@@ -16,5 +20,3 @@ function BackLink({ label = 'Назад' }) {
     </button>
   );
 }
-
-export default BackLink;
