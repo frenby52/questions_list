@@ -2,11 +2,6 @@ import detailsIcon from '@/shared/assets/icons/details.svg';
 import studiedIcon from '@/shared/assets/icons/studied.svg';
 import againIcon from '@/shared/assets/icons/again.svg';
 import favoriteIcon from '@/shared/assets/icons/favorite.svg';
-import figmaIcon from '@/shared/assets/icons/figma.svg';
-import telegramIcon from '@/shared/assets/icons/telegram.svg';
-import youtubeIcon from '@/shared/assets/icons/youtube.svg';
-import tiktokIcon from '@/shared/assets/icons/tiktok.svg';
-import githubIcon from '@/shared/assets/icons/github.svg';
 
 export const SEARCH_DEBOUNCE_MS = 1000;
 
@@ -19,12 +14,6 @@ export const MENU_ITEMS = [
     { id: 'studied', label: 'Изучено', iconSrc: studiedIcon },
     { id: 'again', label: 'Заново', iconSrc: againIcon, disabled: true },
     { id: 'favorite', label: 'Избранное', iconSrc: favoriteIcon },
-  ];
-
-  export const NAV_LINKS = [
-    { href: '#questions', label: 'База вопросов' },
-    { href: '#trainer', label: 'Тренажёр' },
-    { href: '#materials', label: 'Материалы' },
   ];
 
   export const COMPLEXITY_OPTIONS = [
@@ -45,11 +34,3 @@ export const MENU_ITEMS = [
   export const COLLAPSED_SPECS_COUNT = 5;
 
   export const COLLAPSED_SKILLS_COUNT = 8;
-
-  export const SOCIALS_ITEMS = [
-    { id: 1, title: 'Figma', icon: figmaIcon },
-    { id: 2, title: 'Telegram', icon: telegramIcon },
-    { id: 3, title: 'YouTube', icon: youtubeIcon },
-    { id: 4, title: 'TikTok', icon: tiktokIcon },
-    { id: 5, title: 'GitHub', icon: githubIcon },
-  ];

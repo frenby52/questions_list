@@ -1,7 +1,7 @@
 import classes from './Footer.module.scss';
-import { SOCIALS_ITEMS } from '../../shared/constants/constants.js';
+import { SOCIALS_ITEMS } from '../config/constants.ts';
 
-function Footer() {
+export function Footer() {
   return (
     <footer className={classes.footer}>
       <div className={classes.inner}>
@@ -39,5 +39,3 @@ function Footer() {
     </footer>
   );
 }
-
-export default Footer;

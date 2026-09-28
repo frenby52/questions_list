@@ -2,20 +2,20 @@ import { useState, useEffect, useRef } from 'react';
 
 export const useMenu = (initialState = false) => {
     const [isMenuOpen, setIsMenuOpen] = useState(initialState);
-    const menuRef = useRef(null);
+    const menuRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         if (!isMenuOpen) return;
     
-        const handleMouseDown = (event) => {
-          if (menuRef.current && !menuRef.current.contains(event.target)) {
+        const handleMouseDown = (event: MouseEvent) => {
+          if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
             setIsMenuOpen(false);
           }
         };
-        const handleKeyDown = (event) => {
+        const handleKeyDown = (event: KeyboardEvent) => {
           if (event.key !== 'Escape') return;
     
-          event.target.blur();
+          (event.target as HTMLElement).blur();
           setIsMenuOpen(false);
         };
     
