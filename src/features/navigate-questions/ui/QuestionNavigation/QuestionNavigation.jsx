@@ -2,7 +2,7 @@ import classes from './QuestionNavigation.module.scss';
 import arrowLeftIcon from '@/shared/assets/icons/arrow-left.svg';
 import arrowRightIcon from '@/shared/assets/icons/arrow-right.svg';
 
-function QuestionNavigation() {
+export function QuestionNavigation() {
   return (
     <nav className={classes.nav}>
       <button type="button" className={classes.btn} disabled>
@@ -16,5 +16,3 @@ function QuestionNavigation() {
     </nav>
   );
 }
-
-export default QuestionNavigation;

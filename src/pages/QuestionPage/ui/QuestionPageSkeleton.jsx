@@ -1,7 +1,7 @@
 import ContentLoader from 'react-content-loader';
-import classes from './SkeletonQuestionPage.module.scss';
+import classes from './QuestionPageSkeleton.module.scss';
 
-export function SkeletonQuestionPage() {
+export function QuestionPageSkeleton() {
   return (
     <div className={classes.page} aria-busy="true" aria-hidden="true">
       <div className={classes.topBar}>
@@ -123,5 +123,3 @@ export function SkeletonQuestionPage() {
     </div>
   );
 }
-
-export default SkeletonQuestionPage;

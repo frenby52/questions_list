@@ -1,7 +1,7 @@
 import classes from './QuestionHero.module.scss';
 import filterIcon from '@/shared/assets/icons/filter.svg';
 
-function QuestionHero({ question, onOpenDetails }) {
+export function QuestionHero({ question, onOpenDetails }) {
   const { title, description, imageSrc } = question;
 
   return (
@@ -24,5 +24,3 @@ function QuestionHero({ question, onOpenDetails }) {
     </article>
   );
 }
-
-export default QuestionHero;
