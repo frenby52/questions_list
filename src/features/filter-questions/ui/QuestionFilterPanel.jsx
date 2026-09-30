@@ -1,10 +1,9 @@
 import { useState, useMemo } from 'react';
-import { SearchInput, FilterGroup, FilterChip, SideBar } from '@/shared/ui';
-import { COMPLEXITY_OPTIONS, RATE_OPTIONS, STATUS_OPTIONS, COLLAPSED_SPECS_COUNT, COLLAPSED_SKILLS_COUNT } from '../../shared/constants/constants.js';
-import SkeletonQuestionsFilters from '../SkeletonQuestionsFilters/SkeletonQuestionsFilters.jsx';
-import SkeletonQuestionsFiltersAfterSpecs from '../SkeletonQuestionsFiltersAfterSpecs/SkeletonQuestionsFiltersAfterSpecs.jsx';
+import { SearchInput, FilterGroup, FilterChip } from '@/shared/ui';
+import { COMPLEXITY_OPTIONS, RATE_OPTIONS, STATUS_OPTIONS, COLLAPSED_SPECS_COUNT, COLLAPSED_SKILLS_COUNT } from '../config/constants';
+import { SkeletonQuestionsFiltersAfterSpecs } from './SkeletonQuestionsFiltersAfterSpecs';
 
-function QuestionsFilters({ specializations, skills, filters, onFiltersChange, onClose, showClose = false, isSpecializationsLoading, isSkillsLoading }) {
+export function QuestionFilterPanel({ specializations, skills, filters, onFiltersChange, isSkillsLoading }) {
   const [isSpecsExpanded, setIsSpecsExpanded] = useState(false);
   const [isSkillsExpanded, setIsSkillsExpanded] = useState(false);
 
@@ -25,16 +24,8 @@ function QuestionsFilters({ specializations, skills, filters, onFiltersChange, o
         : 'Посмотреть все'
       : null;
 
-  if (isSpecializationsLoading) {
-    return (
-      <SideBar showClose={showClose} onClose={onClose}>
-        <SkeletonQuestionsFilters />
-      </SideBar>
-    );
-  }
-
   return (
-    <SideBar showClose={showClose} onClose={onClose}>
+    <>
       <SearchInput
         value={filters.search}
         onChange={(query) => onFiltersChange('search', query)}
@@ -115,8 +106,6 @@ function QuestionsFilters({ specializations, skills, filters, onFiltersChange, o
           </FilterGroup>
         </>
       )}
-    </SideBar>
+    </>
   );
 }
-
-export default QuestionsFilters;

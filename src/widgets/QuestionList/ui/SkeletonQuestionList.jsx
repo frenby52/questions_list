@@ -4,7 +4,7 @@ import classes from './SkeletonQuestionList.module.scss';
 const ROW_COUNT = 8;
 const COLORS = { bg: '#f8f8f8', fg: '#ecebeb' };
 
-function SkeletonQuestionList() {
+export function SkeletonQuestionList() {
   return (
     <section className={classes.section} aria-busy="true" aria-label="Загрузка списка вопросов">
       <header className={classes.listHeader}>
@@ -47,5 +47,3 @@ function SkeletonQuestionList() {
     </section>
   );
 }
-
-export default SkeletonQuestionList;

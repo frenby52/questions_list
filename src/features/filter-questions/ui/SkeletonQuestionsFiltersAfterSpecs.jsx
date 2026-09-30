@@ -3,7 +3,7 @@ import classes from './SkeletonQuestionsFiltersAfterSpecs.module.scss';
 
 const COLORS = { bg: '#f8f8f8', fg: '#ecebeb' };
 
-function SkeletonQuestionsFiltersAfterSpecs() {
+export function SkeletonQuestionsFiltersAfterSpecs() {
   return (
     <div className={classes.wrap} aria-busy="true" aria-label="Загрузка фильтров">
       <ContentLoader
@@ -40,5 +40,3 @@ function SkeletonQuestionsFiltersAfterSpecs() {
     </div>
   );
 }
-
-export default SkeletonQuestionsFiltersAfterSpecs;

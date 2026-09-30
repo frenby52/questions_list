@@ -1,19 +1,19 @@
 import { useMemo } from 'react';
 import classes from './QuestionsPage.module.scss';
-import QuestionList from '../../components/QuestionList/QuestionList.jsx';
-import QuestionsFilters from '../../components/QuestionsFilters/QuestionsFilters.jsx';
+import { QuestionList } from '@/widgets/QuestionList';
+import { QuestionsFilters } from '@/widgets/QuestionsFilters';
+import { QuestionPageHeader } from './QuestionPageHeader';
 import { ErrorMessage, Pagination } from '@/shared/ui';
-import { PAGE_SIZE_DEFAULT } from '../../shared/constants/constants.js';
-import { useFilters } from '../../shared/hooks/useFilters.js';
-import { useModalState } from '../../shared/hooks/useModalState.js';
-import QuestionListHeader from '../../components/QuestionListHeader/QuestionListHeader.jsx'; 
+import { PAGE_SIZE_DEFAULT } from '@/shared/constants/constants';
+import { useFilters } from '@/features/filter-questions';
+import { useModalState } from '@/shared/hooks/useModalState';
 import { useGetSpecializationsQuery } from '@/entities/specialization';
 import { useGetSkillsQuery } from '@/entities/skill';
 import { useGetQuestionsQuery } from '@/entities/question';
-import { getErrorMessage } from '../../shared/helpers/helpers.js';
-import { useInitialSpecResolve } from '../../shared/hooks/useInitialSpecResolve.js';
+import { getErrorMessage } from '@/shared/helpers/helpers';
+import { useInitialSpecResolve } from '@/features/filter-questions';
 
-function QuestionsPage() {
+export function QuestionsPage() {
   const [isFilterOpen, handleOpenFilter, handleCloseFilter] = useModalState();
   const [filters, setFilters, page, debouncedSearch, handlePageChange, handleFiltersChange] = useFilters();
   const { data: specializations, isLoading: isSpecializationsLoading, error: specializationsError } = useGetSpecializationsQuery();
@@ -39,7 +39,7 @@ function QuestionsPage() {
     <div className={classes.page}>
       <div className={classes.content}>
         <div className={classes.contentWrapper}>
-          {!isListLoading && <QuestionListHeader title={currentSpecTitle} onOpenFilter={handleOpenFilter} />}
+          {!isListLoading && <QuestionPageHeader title={currentSpecTitle} onOpenFilter={handleOpenFilter} />}
           {questionsError ? (
             <ErrorMessage message={getErrorMessage(questionsError)} refetch={refetchQuestions} />
           ) : (
@@ -80,5 +80,3 @@ function QuestionsPage() {
     </div>
   );
 }
-
-export default QuestionsPage;

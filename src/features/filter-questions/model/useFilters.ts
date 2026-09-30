@@ -1,8 +1,8 @@
 import { useState, useCallback, useEffect } from 'react';
-import { ARRAY_TYPE_PROPERTIES, SEARCH_DEBOUNCE_MS } from '../constants/constants';
+import { ARRAY_TYPE_PROPERTIES, SEARCH_DEBOUNCE_MS } from '@/shared/constants/constants';
 import { useSearchParams } from 'react-router-dom';
-import { toggleInArray, toggleComplexity, parseArray, parseNumberList, mapFiltersToParams } from '../helpers/helpers.js';
-import { useDebounce } from './useDebounce.js';
+import { toggleInArray, toggleComplexity, parseArray, parseNumberList, mapFiltersToParams } from '@/shared/helpers/helpers';
+import { useDebounce } from '@/shared/hooks/useDebounce';
 import type { Filters } from '@/shared/api/types';
 
 const defaultFilters: Filters = {

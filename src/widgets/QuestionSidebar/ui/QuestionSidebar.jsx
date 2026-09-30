@@ -1,9 +1,9 @@
 import { MetaPill, FilterChip, KeywordChip, FilterGroup, SideBar } from '@/shared/ui';
-import { useQuestionAttributeFilter } from '@/features/filter-questions-by-attribute';
+import { useDetailedQuestionAttributeFilter } from '@/features/filter-questions';
 
 export function QuestionSidebar({ question, showClose = false, onClose }) {
   const { complexity = 0, rate = 0, questionSkills = [], keywords = [] } = question;
-  const handleQuestionFilterClick = useQuestionAttributeFilter();
+  const handleQuestionFilterClick = useDetailedQuestionAttributeFilter();
 
   return (
     <SideBar showClose={showClose} onClose={onClose}>

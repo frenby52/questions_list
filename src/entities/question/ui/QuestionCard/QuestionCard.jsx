@@ -1,25 +1,14 @@
 import { useState } from 'react';
-import classes from './QuestionItem.module.scss';
+import classes from './QuestionCard.module.scss';
 import chevronDownIcon from '@/shared/assets/icons/chevron-down-brand.svg';
 import kebabIcon from '@/shared/assets/icons/kebab.svg';
 import { useMenu } from '@/shared/hooks/useMenu.ts';
-import { ROUTES } from '../../app/providers/router/config/routes.js';
-import { useNavigate } from 'react-router-dom';
-import QuestionMenu from '../QuestionMenu/QuestionMenu.jsx';
 import { ContentRenderer, MetaPill } from '@/shared/ui';
 
-function QuestionItem({ question, defaultOpen = false }) {
+export function QuestionCard({ question, defaultOpen = false, questionActions }) {
   const [isQuestionOpen, setIsQuestionOpen] = useState(defaultOpen);
   const [isMenuOpen, setIsMenuOpen, menuRef] = useMenu();
-  const navigate = useNavigate();
   const toggleIconClass = isQuestionOpen ? `${classes.toggleIcon} ${classes.toggleIconOpen}` : classes.toggleIcon;
-
-  const handleMenuItemClick = (id) => {
-    if (id === 'details') {
-      navigate(ROUTES.getQuestion(question.id));
-    }
-    setIsMenuOpen(false);
-  };
 
   return (
     <article className={classes.item}>
@@ -41,19 +30,21 @@ function QuestionItem({ question, defaultOpen = false }) {
               <MetaPill label="Рейтинг:" value={question.rate ?? 0} />
               <MetaPill label="Сложность:" value={question.complexity ?? 0} />
             </div>
-            <div className={classes.actions} ref={menuRef}>
-              <button
-                type="button"
-                className={classes.actionsBtn}
-                onClick={(event) => {
-                  event.stopPropagation();
-                  setIsMenuOpen((prev) => !prev);
-                }}
-              >
-                <img src={kebabIcon} alt="" width={18} height={18} />
-              </button>
-              {isMenuOpen && <QuestionMenu handleMenuItemClick={handleMenuItemClick} />}
-            </div>
+            {questionActions && (
+              <div className={classes.actions} ref={menuRef}>
+                <button
+                  type="button"
+                  className={classes.actionsBtn}
+                  onClick={(event) => {
+                    event.stopPropagation();
+                    setIsMenuOpen((prev) => !prev);
+                  }}
+                >
+                  <img src={kebabIcon} alt="" width={18} height={18} />
+                </button>
+                {isMenuOpen && questionActions(() => setIsMenuOpen(false))}
+              </div>
+            )}
           </div>
 
           {question.imageSrc && (
@@ -65,5 +56,3 @@ function QuestionItem({ question, defaultOpen = false }) {
     </article>
   );
 }
-
-export default QuestionItem;

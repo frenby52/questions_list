@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { buildUrl } from '@/shared/helpers/helpers';
 import { ROUTES } from '@/shared/config/routes';
 
-export function useQuestionAttributeFilter() {
+export function useDetailedQuestionAttributeFilter() {
   const navigate = useNavigate();
 
   return useCallback((key, value) => {

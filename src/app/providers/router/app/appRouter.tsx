@@ -1,7 +1,7 @@
 import { createBrowserRouter, Navigate } from 'react-router-dom';
 import BaseLayout from '@/app/layouts/BaseLayout.tsx';
-import QuestionsPage from '@/pages/QuestionsPage/QuestionsPage.jsx';
-import { QuestionPage } from '@/pages/QuestionPage/ui/QuestionPage';
+import { QuestionsPage } from '@/pages/QuestionsPage';
+import { QuestionPage } from '@/pages/QuestionPage';
 import { ErrorMessage } from '@/shared/ui';
 import { ROUTES } from '@/app/providers/router/config/routes';
 
