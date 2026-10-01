@@ -3,7 +3,7 @@ import { Header } from '@/widgets/Header';
 import { Footer } from '@/widgets/Footer';
 import { Outlet } from 'react-router-dom';
 
-function BaseLayout() {
+export function BaseLayout() {
   return (
     <div className={classes.baseLayout}>
       <Header />
@@ -13,4 +13,3 @@ function BaseLayout() {
   );
 }
 
-export default BaseLayout;

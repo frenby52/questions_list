@@ -1,7 +1,7 @@
 import { SideBar } from '@/shared/ui';
 import { QuestionFilterPanel } from '@/features/filter-questions';
 import { SkeletonQuestionsFilters } from './SkeletonQuestionsFilters';
-import type { Filters } from '@/shared/api/types';
+import type { Filters } from '@/entities/question';
 import type { Specialization } from '@/entities/specialization';
 import type { Skill } from '@/entities/skill';
 import type { FilterChangeHandler } from '@/features/filter-questions';

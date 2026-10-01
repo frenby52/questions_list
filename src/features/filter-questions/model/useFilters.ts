@@ -1,11 +1,10 @@
 import { useState, useCallback, useEffect } from 'react';
 import type { Dispatch, SetStateAction } from 'react';
-import { SEARCH_DEBOUNCE_MS } from '@/shared/constants/constants';
+import { SEARCH_DEBOUNCE_MS } from '@/shared/constants';
 import { useSearchParams } from 'react-router-dom';
 import { toggleInArray, toggleComplexity, parseArray, parseNumberList } from '../lib/filterHelpers';
-import { mapFiltersToParams } from '@/entities/question';
-import { useDebounce } from '@/shared/hooks/useDebounce';
-import type { Filters } from '@/shared/api/types';
+import { mapFiltersToParams, type Filters } from '@/entities/question';
+import { useDebounce } from '@/shared/hooks';
 
 export type FilterChangeHandler = (key: keyof Filters, newValue: string | number | null) => void;
 

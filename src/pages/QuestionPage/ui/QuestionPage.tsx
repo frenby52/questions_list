@@ -5,8 +5,8 @@ import { useGetQuestionQuery } from '@/entities/question';
 import { QuestionView } from '@/widgets/QuestionView';
 import { QuestionSidebar } from '@/widgets/QuestionSidebar';
 import { QuestionPageSkeleton } from './QuestionPageSkeleton';
-import { useModalState } from '@/shared/hooks/useModalState';
-import { getErrorMessage } from '@/shared/lib/getErrorMessage';
+import { useModalState } from '@/shared/hooks';
+import { getErrorMessage } from '@/shared/lib';
 
 export function QuestionPage() {
   const { id } = useParams();

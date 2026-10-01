@@ -3,9 +3,9 @@ import type { ReactNode } from 'react';
 import classes from './QuestionCard.module.scss';
 import chevronDownIcon from '@/shared/assets/icons/chevron-down-brand.svg';
 import kebabIcon from '@/shared/assets/icons/kebab.svg';
-import { useMenu } from '@/shared/hooks/useMenu';
+import { useMenu } from '@/shared/hooks';
 import { ContentRenderer, MetaPill } from '@/shared/ui';
-import type { Question } from '@/entities/question/model/types';
+import type { Question } from '../../model/types';
 
 interface QuestionCardProps {
   question: Question;

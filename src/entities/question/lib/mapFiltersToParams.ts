@@ -1,5 +1,5 @@
-import { ARRAY_TYPE_PROPERTIES } from '@/shared/constants/constants';
-import type { Filters } from '@/shared/api/types';
+import { ARRAY_TYPE_PROPERTIES } from './constants';
+import type { Filters } from '../model/types';
 
 export function mapFiltersToParams(filters: Filters): URLSearchParams {
   const params = new URLSearchParams();

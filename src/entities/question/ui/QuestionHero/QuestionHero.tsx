@@ -1,6 +1,6 @@
 import classes from './QuestionHero.module.scss';
 import filterIcon from '@/shared/assets/icons/filter.svg';
-import type { Question } from '@/entities/question/model/types';
+import type { Question } from '../../model/types';
 
 interface QuestionHeroProps {
   question: Question;

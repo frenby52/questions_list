@@ -1,6 +1,7 @@
 import { useEffect, useMemo } from 'react';
 import type { Dispatch, SetStateAction } from 'react';
-import type { Filters, Paginated } from '@/shared/api/types';
+import type { Paginated } from '@/shared/api';
+import type { Filters } from '@/entities/question';
 import type { Specialization } from '@/entities/specialization';
 
 export function useInitialSpecResolve(

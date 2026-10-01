@@ -2,7 +2,7 @@ import { useState, useMemo } from 'react';
 import { SearchInput, FilterGroup, FilterChip } from '@/shared/ui';
 import { COMPLEXITY_OPTIONS, RATE_OPTIONS, STATUS_OPTIONS, COLLAPSED_SPECS_COUNT, COLLAPSED_SKILLS_COUNT } from '../config/constants';
 import { SkeletonQuestionsFiltersAfterSpecs } from './SkeletonQuestionsFiltersAfterSpecs';
-import type { Filters } from '@/shared/api/types';
+import type { Filters } from '@/entities/question';
 import type { Specialization } from '@/entities/specialization';
 import type { Skill } from '@/entities/skill';
 import type { FilterChangeHandler } from '../model/useFilters';

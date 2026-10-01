@@ -1,10 +1,10 @@
 import { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { buildUrl } from '../lib/filterHelpers';
-import { ROUTES } from '@/shared/config/routes';
-import type { Filters } from '@/shared/api/types';
+import { ROUTES } from '@/shared/config';
+import type { Filters } from '@/entities/question';
 
-type AttributeFilterKey = Extract<keyof Filters, 'skills' | 'keywords' >;
+type AttributeFilterKey = Extract<keyof Filters, 'skills' | 'keywords'>;
 
 export function useDetailedQuestionAttributeFilter() {
   const navigate = useNavigate();

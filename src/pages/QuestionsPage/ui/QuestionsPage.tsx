@@ -2,16 +2,15 @@ import { useMemo } from 'react';
 import classes from './QuestionsPage.module.scss';
 import { QuestionList } from '@/widgets/QuestionList';
 import { QuestionsFilters } from '@/widgets/QuestionsFilters';
-import { QuestionPageHeader } from './QuestionPageHeader';
+import { QuestionsPageHeader } from './QuestionsPageHeader';
 import { ErrorMessage, Pagination } from '@/shared/ui';
-import { PAGE_SIZE_DEFAULT } from '@/shared/constants/constants';
-import { useFilters } from '@/features/filter-questions';
-import { useModalState } from '@/shared/hooks/useModalState';
+import { PAGE_SIZE_DEFAULT } from '@/shared/constants';
+import { useFilters, useInitialSpecResolve } from '@/features/filter-questions';
+import { useModalState } from '@/shared/hooks';
 import { useGetSpecializationsQuery } from '@/entities/specialization';
 import { useGetSkillsQuery } from '@/entities/skill';
 import { useGetQuestionsQuery } from '@/entities/question';
-import { getErrorMessage } from '@/shared/lib/getErrorMessage';
-import { useInitialSpecResolve } from '@/features/filter-questions';
+import { getErrorMessage } from '@/shared/lib';
 
 export function QuestionsPage() {
   const [isFilterOpen, handleOpenFilter, handleCloseFilter] = useModalState();
@@ -39,7 +38,7 @@ export function QuestionsPage() {
     <div className={classes.page}>
       <div className={classes.content}>
         <div className={classes.contentWrapper}>
-          {!isListLoading && <QuestionPageHeader title={currentSpecTitle} onOpenFilter={handleOpenFilter} />}
+          {!isListLoading && <QuestionsPageHeader title={currentSpecTitle} onOpenFilter={handleOpenFilter} />}
           {questionsError ? (
             <ErrorMessage message={getErrorMessage(questionsError)} refetch={refetchQuestions} />
           ) : (
