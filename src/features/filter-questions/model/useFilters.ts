@@ -2,7 +2,8 @@ import { useState, useCallback, useEffect } from 'react';
 import type { Dispatch, SetStateAction } from 'react';
 import { SEARCH_DEBOUNCE_MS } from '@/shared/constants/constants';
 import { useSearchParams } from 'react-router-dom';
-import { toggleInArray, toggleComplexity, parseArray, parseNumberList, mapFiltersToParams } from '@/shared/helpers/helpers';
+import { toggleInArray, toggleComplexity, parseArray, parseNumberList } from '../lib/filterHelpers';
+import { mapFiltersToParams } from '@/entities/question';
 import { useDebounce } from '@/shared/hooks/useDebounce';
 import type { Filters } from '@/shared/api/types';
 

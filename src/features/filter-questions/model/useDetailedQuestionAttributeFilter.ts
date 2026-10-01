@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { buildUrl } from '@/shared/helpers/helpers';
+import { buildUrl } from '../lib/filterHelpers';
 import { ROUTES } from '@/shared/config/routes';
 import type { Filters } from '@/shared/api/types';
 

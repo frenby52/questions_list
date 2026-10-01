@@ -10,7 +10,7 @@ import { useModalState } from '@/shared/hooks/useModalState';
 import { useGetSpecializationsQuery } from '@/entities/specialization';
 import { useGetSkillsQuery } from '@/entities/skill';
 import { useGetQuestionsQuery } from '@/entities/question';
-import { getErrorMessage } from '@/shared/helpers/helpers';
+import { getErrorMessage } from '@/shared/lib/getErrorMessage';
 import { useInitialSpecResolve } from '@/features/filter-questions';
 
 export function QuestionsPage() {

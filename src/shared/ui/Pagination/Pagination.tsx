@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 import classes from './Pagination.module.scss';
 import arrowLeftIcon from '@/shared/assets/icons/arrow-left.svg';
 import arrowRightIcon from '@/shared/assets/icons/arrow-right.svg';
-import { getPages } from '@/shared/helpers/helpers';
+import { getPages } from './getPages';
 
 interface PaginationProps {
   page: number;

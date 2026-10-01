@@ -1,7 +1,7 @@
 import { baseApi } from '@/shared/api/baseApi';
 import type { Filters, Paginated } from '@/shared/api/types';
 import type { Question } from '../model/types';
-import { mapFiltersToParams } from '@/shared/helpers/helpers';
+import { mapFiltersToParams } from '../lib/mapFiltersToParams';
 
 const questionApi = baseApi.injectEndpoints({
     endpoints: (builder) => ({

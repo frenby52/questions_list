@@ -6,7 +6,7 @@ import { QuestionView } from '@/widgets/QuestionView';
 import { QuestionSidebar } from '@/widgets/QuestionSidebar';
 import { QuestionPageSkeleton } from './QuestionPageSkeleton';
 import { useModalState } from '@/shared/hooks/useModalState';
-import { getErrorMessage } from '@/shared/helpers/helpers';
+import { getErrorMessage } from '@/shared/lib/getErrorMessage';
 
 export function QuestionPage() {
   const { id } = useParams();
