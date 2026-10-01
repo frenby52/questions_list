@@ -1,6 +1,6 @@
 import classes from './BaseLayout.module.scss';
-import { Header } from '../../widgets/Header/index.ts';
-import { Footer } from '../../widgets/Footer/index.ts';
+import { Header } from '@/widgets/Header';
+import { Footer } from '@/widgets/Footer';
 import { Outlet } from 'react-router-dom';
 
 function BaseLayout() {

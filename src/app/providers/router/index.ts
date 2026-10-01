@@ -1,1 +1,1 @@
-export { router } from './app/appRouter.tsx';
+export { router } from './app/appRouter';

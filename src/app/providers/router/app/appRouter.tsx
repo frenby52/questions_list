@@ -1,5 +1,5 @@
 import { createBrowserRouter, Navigate } from 'react-router-dom';
-import BaseLayout from '@/app/layouts/BaseLayout.tsx';
+import BaseLayout from '@/app/layouts/BaseLayout';
 import { QuestionsPage } from '@/pages/QuestionsPage';
 import { QuestionPage } from '@/pages/QuestionPage';
 import { ErrorMessage } from '@/shared/ui';

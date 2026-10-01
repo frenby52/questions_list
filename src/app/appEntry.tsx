@@ -2,8 +2,8 @@ import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import './styles/global.scss';
 import { Provider } from 'react-redux';
-import { store } from '@/app/store/config/store.ts';
-import { router } from './providers/router/index.ts';
+import { store } from '@/app/store/config/store';
+import { router } from './providers/router';
 import { RouterProvider } from 'react-router-dom';
 
 const container = document.getElementById('root');

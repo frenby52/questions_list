@@ -5,7 +5,10 @@ import { ROUTES } from '@/shared/config/routes';
 export function useQuestionActions() {
   const navigate = useNavigate();
 
-  const openDetails = useCallback((id) => navigate(ROUTES.getQuestion(id)), [navigate]);
+  const openDetails = useCallback(
+    (id: number) => navigate(ROUTES.getQuestion(id)),
+    [navigate],
+  );
 
   return { openDetails };
 }

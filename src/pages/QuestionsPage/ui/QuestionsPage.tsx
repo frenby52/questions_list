@@ -14,7 +14,7 @@ import { getErrorMessage } from '@/shared/helpers/helpers';
 import { useInitialSpecResolve } from '@/features/filter-questions';
 
 export function QuestionsPage() {
-  const [isFilterOpen, handleOpenFilter, handleCloseFilter] = useModalState() as [boolean, () => void, () => void];
+  const [isFilterOpen, handleOpenFilter, handleCloseFilter] = useModalState();
   const [filters, setFilters, page, debouncedSearch, handlePageChange, handleFiltersChange] = useFilters();
   const { data: specializations, isLoading: isSpecializationsLoading, error: specializationsError } = useGetSpecializationsQuery({});
   const shouldResolveInitialSpec = useInitialSpecResolve(filters, specializations, setFilters);

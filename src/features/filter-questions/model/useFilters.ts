@@ -1,6 +1,6 @@
 import { useState, useCallback, useEffect } from 'react';
 import type { Dispatch, SetStateAction } from 'react';
-import { ARRAY_TYPE_PROPERTIES, SEARCH_DEBOUNCE_MS } from '@/shared/constants/constants';
+import { SEARCH_DEBOUNCE_MS } from '@/shared/constants/constants';
 import { useSearchParams } from 'react-router-dom';
 import { toggleInArray, toggleComplexity, parseArray, parseNumberList, mapFiltersToParams } from '@/shared/helpers/helpers';
 import { useDebounce } from '@/shared/hooks/useDebounce';
@@ -41,7 +41,7 @@ export const useFilters = (): UseFiltersReturn => {
   });
 
   const [page, setPage] = useState(() => Number(searchParams.get('page')) || 1);
-  const debouncedSearch = useDebounce(filters.search, SEARCH_DEBOUNCE_MS);
+  const debouncedSearch = useDebounce(filters.search ?? '', SEARCH_DEBOUNCE_MS);
 
   useEffect(() => {
     const params = mapFiltersToParams({ ...filters, search: debouncedSearch, page });
@@ -58,10 +58,13 @@ export const useFilters = (): UseFiltersReturn => {
       if (key === 'complexity') {
         return { ...prevFilters, complexity: toggleComplexity(prevFilters.complexity, newValue) };
       }
-      const actualValue = (ARRAY_TYPE_PROPERTIES as readonly string[]).includes(key)
-        ? toggleInArray(prevFilters[key], newValue)
-        : newValue;
-      return { ...prevFilters, [key]: actualValue };
+      if (key === 'skills' || key === 'rate') {
+        return { ...prevFilters, [key]: toggleInArray(prevFilters[key], Number(newValue)) };
+      }
+      if (key === 'keywords') {
+        return { ...prevFilters, keywords: toggleInArray(prevFilters.keywords, String(newValue)) };
+      }
+      return { ...prevFilters, [key]: newValue };
     });
 
     setPage(1);
