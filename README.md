@@ -3,4 +3,4 @@
 Выполнил: [Alexey Ak](mailto:frenby@mail.ru),
 tg: @frenby
 
-##### React, Vite, CSS Modules / SCSS
+##### React, FSD, RTK Query, TS, Vite, CSS Modules / SCSS
