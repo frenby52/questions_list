@@ -1,0 +1,100 @@
+import classes from './Header.module.scss';
+import logoIcon from '@/shared/assets/icons/logo.svg';
+import chevronDownIcon from '@/shared/assets/icons/chevron-down.svg';
+import menuIcon from '@/shared/assets/icons/menu.svg';
+import { NAV_LINKS } from '../config/constants';
+import { useMenu } from '@/shared/hooks';
+
+export function Header() {
+  const [isPrepOpen, setIsPrepOpen, prepRef] = useMenu();
+  const [isMenuOpen, setIsMenuOpen, burgerRef] = useMenu();
+
+  const prepChevronClass = isPrepOpen
+    ? `${classes.chevron} ${classes.chevronOpen}`
+    : classes.chevron;
+
+  return (
+    <header className={classes.header}>
+      <div className={classes.inner}>
+        <a className={classes.logo} href="/">
+          <img src={logoIcon} alt="" width={33} height={33} />
+          <span className={classes.logoText}>Yeahub</span>
+        </a>
+
+        <div className={classes.sectionBox} ref={prepRef}>
+          <button
+            type="button"
+            className={classes.section}
+            onClick={() => setIsPrepOpen((prev) => !prev)}
+          >
+            <span>Подготовка</span>
+            <img
+              className={prepChevronClass}
+              src={chevronDownIcon}
+              alt=""
+              width={18}
+              height={18}
+            />
+          </button>
+
+          {isPrepOpen && (
+            <div className={classes.dropdown} >
+              {NAV_LINKS.map((link) => (
+                <a
+                  key={link.href}
+                  className={classes.dropdownLink}
+                  href={link.href}
+                  onClick={() => setIsPrepOpen(false)}
+                >
+                  {link.label}
+                </a>
+              ))}
+            </div>
+          )}
+        </div>
+
+        <nav className={classes.nav}>
+          {NAV_LINKS.map((link) => (
+            <a key={link.href} className={classes.navLink} href={link.href}>
+              {link.label}
+            </a>
+          ))}
+        </nav>
+
+        <div className={classes.auth}>
+          <a className={classes.loginLink} href="#login">Вход</a>
+          <a className={classes.signupLink} href="#signup">Регистрация</a>
+        </div>
+
+        <div className={classes.burgerBox} ref={burgerRef}>
+          <button
+            type="button"
+            className={classes.burger}
+            onClick={() => setIsMenuOpen((prev) => !prev)}
+          >
+            <img src={menuIcon} alt="" width={24} height={24} />
+          </button>
+
+          {isMenuOpen && (
+            <div className={`${classes.dropdown} ${classes.dropdownRight}`} >
+              <a
+                className={classes.loginLink}
+                href="#login"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Вход
+              </a>
+              <a
+                href="#signup"
+                className={classes.signupLink}
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Регистрация
+              </a>
+            </div>
+          )}
+        </div>
+      </div>
+    </header>
+  );
+}
