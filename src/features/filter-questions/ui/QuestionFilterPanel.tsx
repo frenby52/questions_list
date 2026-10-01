@@ -2,8 +2,20 @@ import { useState, useMemo } from 'react';
 import { SearchInput, FilterGroup, FilterChip } from '@/shared/ui';
 import { COMPLEXITY_OPTIONS, RATE_OPTIONS, STATUS_OPTIONS, COLLAPSED_SPECS_COUNT, COLLAPSED_SKILLS_COUNT } from '../config/constants';
 import { SkeletonQuestionsFiltersAfterSpecs } from './SkeletonQuestionsFiltersAfterSpecs';
+import type { Filters } from '@/shared/api/types';
+import type { Specialization } from '@/entities/specialization';
+import type { Skill } from '@/entities/skill';
+import type { FilterChangeHandler } from '../model/useFilters';
 
-export function QuestionFilterPanel({ specializations, skills, filters, onFiltersChange, isSkillsLoading }) {
+interface QuestionFilterPanelProps {
+  specializations: Specialization[];
+  skills: Skill[];
+  filters: Filters;
+  onFiltersChange: FilterChangeHandler;
+  isSkillsLoading?: boolean;
+}
+
+export function QuestionFilterPanel({ specializations, skills, filters, onFiltersChange, isSkillsLoading }: QuestionFilterPanelProps) {
   const [isSpecsExpanded, setIsSpecsExpanded] = useState(false);
   const [isSkillsExpanded, setIsSkillsExpanded] = useState(false);
 
@@ -27,7 +39,7 @@ export function QuestionFilterPanel({ specializations, skills, filters, onFilter
   return (
     <>
       <SearchInput
-        value={filters.search}
+        value={filters.search ?? ''}
         onChange={(query) => onFiltersChange('search', query)}
       />
       <FilterGroup
@@ -63,7 +75,7 @@ export function QuestionFilterPanel({ specializations, skills, filters, onFilter
                 key={skill.id}
                 label={skill.title}
                 iconSrc={skill.imageSrc}
-                isActive={filters.skills.includes(skill.id)}
+                isActive={filters.skills?.includes(skill.id)}
                 onClick={() => onFiltersChange('skills', skill.id)}
               />
             ))}
@@ -71,7 +83,7 @@ export function QuestionFilterPanel({ specializations, skills, filters, onFilter
           <FilterGroup title="Уровень сложности">
             {COMPLEXITY_OPTIONS.map((option) => {
               const optionValues = option.value.split(',');
-              const isActive = optionValues.some((v) => filters.complexity.includes(v));
+              const isActive = optionValues.some((v) => filters.complexity?.includes(v));
               return (
                 <FilterChip
                   key={option.value}
@@ -89,7 +101,7 @@ export function QuestionFilterPanel({ specializations, skills, filters, onFilter
                 key={rate}
                 label={String(rate)}
                 variant="compact"
-                isActive={filters.rate.includes(rate)}
+                isActive={filters.rate?.includes(rate)}
                 onClick={() => onFiltersChange('rate', rate)}
               />
             ))}

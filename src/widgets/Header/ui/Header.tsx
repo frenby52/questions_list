@@ -3,7 +3,7 @@ import logoIcon from '@/shared/assets/icons/logo.svg';
 import chevronDownIcon from '@/shared/assets/icons/chevron-down.svg';
 import menuIcon from '@/shared/assets/icons/menu.svg';
 import { NAV_LINKS } from '../config/constants.ts';
-import { useMenu } from '../../../shared/hooks/useMenu.js';
+import { useMenu } from '@/shared/hooks/useMenu';
 
 export function Header() {
   const [isPrepOpen, setIsPrepOpen, prepRef] = useMenu();

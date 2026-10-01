@@ -11,10 +11,11 @@ import { getErrorMessage } from '@/shared/helpers/helpers';
 export function QuestionPage() {
   const { id } = useParams();
   const { data: question, isLoading, error } = useGetQuestionQuery(Number(id), { skip: !id });
-  const [isDetailsOpen, openDetails, closeDetails] = useModalState();
+  const [isDetailsOpen, openDetails, closeDetails] = useModalState() as [boolean, () => void, () => void];
 
   if (isLoading) return <QuestionPageSkeleton />;
   if (error) return <ErrorMessage message={getErrorMessage(error)} />;
+  if (!question) return null;
 
   return (
     <div className={classes.page}>

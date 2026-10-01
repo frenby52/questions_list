@@ -1,9 +1,21 @@
 import { useState, useCallback, useEffect } from 'react';
+import type { Dispatch, SetStateAction } from 'react';
 import { ARRAY_TYPE_PROPERTIES, SEARCH_DEBOUNCE_MS } from '@/shared/constants/constants';
 import { useSearchParams } from 'react-router-dom';
 import { toggleInArray, toggleComplexity, parseArray, parseNumberList, mapFiltersToParams } from '@/shared/helpers/helpers';
 import { useDebounce } from '@/shared/hooks/useDebounce';
 import type { Filters } from '@/shared/api/types';
+
+export type FilterChangeHandler = (key: keyof Filters, newValue: string | number | null) => void;
+
+type UseFiltersReturn = [
+  Filters,
+  Dispatch<SetStateAction<Filters>>,
+  number,
+  string,
+  (nextPage: number) => void,
+  FilterChangeHandler,
+];
 
 const defaultFilters: Filters = {
   search: '',
@@ -15,7 +27,7 @@ const defaultFilters: Filters = {
   status: 'all',
 };
 
-export const useFilters = () => {
+export const useFilters = (): UseFiltersReturn => {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const [filters, setFilters] = useState<Filters>({
@@ -36,7 +48,7 @@ export const useFilters = () => {
     setSearchParams(params, { replace: true });
   }, [filters, debouncedSearch, page, setSearchParams]);
 
-  const handleFiltersChange = useCallback((key, newValue) => {
+  const handleFiltersChange = useCallback<FilterChangeHandler>((key, newValue) => {
     if (newValue === null) return;
 
     setFilters((prevFilters) => {
@@ -46,7 +58,7 @@ export const useFilters = () => {
       if (key === 'complexity') {
         return { ...prevFilters, complexity: toggleComplexity(prevFilters.complexity, newValue) };
       }
-      const actualValue = ARRAY_TYPE_PROPERTIES.includes(key)
+      const actualValue = (ARRAY_TYPE_PROPERTIES as readonly string[]).includes(key)
         ? toggleInArray(prevFilters[key], newValue)
         : newValue;
       return { ...prevFilters, [key]: actualValue };

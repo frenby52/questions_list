@@ -1,7 +1,13 @@
 import { QuestionHero, QuestionAnswer } from '@/entities/question';
 import { QuestionNavigation } from '@/features/navigate-questions';
+import type { Question } from '@/entities/question';
 
-export function QuestionView({ question, onOpenDetails }) {
+interface QuestionViewProps {
+  question: Question;
+  onOpenDetails?: () => void;
+}
+
+export function QuestionView({ question, onOpenDetails }: QuestionViewProps) {
   return (
     <>
       <QuestionHero question={question} onOpenDetails={onOpenDetails} />

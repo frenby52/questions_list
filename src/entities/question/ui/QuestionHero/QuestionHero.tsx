@@ -1,7 +1,13 @@
 import classes from './QuestionHero.module.scss';
 import filterIcon from '@/shared/assets/icons/filter.svg';
+import type { Question } from '@/entities/question/model/types';
 
-export function QuestionHero({ question, onOpenDetails }) {
+interface QuestionHeroProps {
+  question: Question;
+  onOpenDetails?: () => void;
+}
+
+export function QuestionHero({ question, onOpenDetails }: QuestionHeroProps) {
   const { title, description, imageSrc } = question;
 
   return (

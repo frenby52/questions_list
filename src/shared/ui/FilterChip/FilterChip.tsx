@@ -5,7 +5,7 @@ type FilterChipVariant = 'default' | 'compact';
 
 interface FilterChipProps {
   label: string;
-  iconSrc?: string;
+  iconSrc?: string | null;
   isActive?: boolean;
   variant?: FilterChipVariant;
   onClick?: () => void;

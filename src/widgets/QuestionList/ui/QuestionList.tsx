@@ -1,9 +1,15 @@
 import classes from './QuestionList.module.scss';
 import { QuestionCard } from '@/entities/question';
+import type { Question } from '@/entities/question';
 import { QuestionActionsMenu } from '@/features/question-actions';
 import { SkeletonQuestionList } from './SkeletonQuestionList';
 
-export function QuestionList({ questions, isLoading }) {
+interface QuestionListProps {
+  questions: Question[];
+  isLoading?: boolean;
+}
+
+export function QuestionList({ questions, isLoading }: QuestionListProps) {
 
   if (isLoading) {
     return <SkeletonQuestionList />;

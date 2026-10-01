@@ -1,11 +1,19 @@
 import { useState } from 'react';
+import type { ReactNode } from 'react';
 import classes from './QuestionCard.module.scss';
 import chevronDownIcon from '@/shared/assets/icons/chevron-down-brand.svg';
 import kebabIcon from '@/shared/assets/icons/kebab.svg';
-import { useMenu } from '@/shared/hooks/useMenu.ts';
+import { useMenu } from '@/shared/hooks/useMenu';
 import { ContentRenderer, MetaPill } from '@/shared/ui';
+import type { Question } from '@/entities/question/model/types';
 
-export function QuestionCard({ question, defaultOpen = false, questionActions }) {
+interface QuestionCardProps {
+  question: Question;
+  defaultOpen?: boolean;
+  questionActions?: (close: () => void) => ReactNode;
+}
+
+export function QuestionCard({ question, defaultOpen = false, questionActions }: QuestionCardProps) {
   const [isQuestionOpen, setIsQuestionOpen] = useState(defaultOpen);
   const [isMenuOpen, setIsMenuOpen, menuRef] = useMenu();
   const toggleIconClass = isQuestionOpen ? `${classes.toggleIcon} ${classes.toggleIconOpen}` : classes.toggleIcon;

@@ -1,10 +1,16 @@
 import classes from './QuestionActionsMenu.module.scss';
 import { MENU_ITEMS } from '../config/menuItems';
 import { useQuestionActions } from '../model/useQuestionActions';
+import type { Question } from '@/entities/question';
 
-export function QuestionActionsMenu({ question, onClose }) {
+interface QuestionActionsMenuProps {
+  question: Question;
+  onClose?: () => void;
+}
+
+export function QuestionActionsMenu({ question, onClose }: QuestionActionsMenuProps) {
   const { openDetails } = useQuestionActions();
-  const handleMenuItemClick = (id) => {
+  const handleMenuItemClick = (id: string) => {
     switch (id) {
       case 'details':
         openDetails(question.id);

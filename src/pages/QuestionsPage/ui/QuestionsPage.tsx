@@ -14,12 +14,12 @@ import { getErrorMessage } from '@/shared/helpers/helpers';
 import { useInitialSpecResolve } from '@/features/filter-questions';
 
 export function QuestionsPage() {
-  const [isFilterOpen, handleOpenFilter, handleCloseFilter] = useModalState();
+  const [isFilterOpen, handleOpenFilter, handleCloseFilter] = useModalState() as [boolean, () => void, () => void];
   const [filters, setFilters, page, debouncedSearch, handlePageChange, handleFiltersChange] = useFilters();
-  const { data: specializations, isLoading: isSpecializationsLoading, error: specializationsError } = useGetSpecializationsQuery();
+  const { data: specializations, isLoading: isSpecializationsLoading, error: specializationsError } = useGetSpecializationsQuery({});
   const shouldResolveInitialSpec = useInitialSpecResolve(filters, specializations, setFilters);
   const { data: skills, isLoading: isSkillsLoading } = useGetSkillsQuery(
-    { specializations: [filters.specializationId] },
+    { specializations: filters.specializationId ? [filters.specializationId] : [] },
     { skip: !filters.specializationId}
   );
 

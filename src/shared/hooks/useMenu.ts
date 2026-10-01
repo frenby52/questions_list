@@ -1,6 +1,9 @@
 import { useState, useEffect, useRef } from 'react';
+import type { Dispatch, RefObject, SetStateAction } from 'react';
 
-export const useMenu = (initialState = false) => {
+type UseMenuReturn = [boolean, Dispatch<SetStateAction<boolean>>, RefObject<HTMLDivElement | null>];
+
+export const useMenu = (initialState = false): UseMenuReturn => {
     const [isMenuOpen, setIsMenuOpen] = useState(initialState);
     const menuRef = useRef<HTMLDivElement>(null);
 

@@ -1,7 +1,12 @@
 import classes from './QuestionPageHeader.module.scss';
 import filterIcon from '@/shared/assets/icons/filter.svg';
 
-export function QuestionPageHeader({ title, onOpenFilter }) {
+interface QuestionPageHeaderProps {
+  title: string;
+  onOpenFilter?: () => void;
+}
+
+export function QuestionPageHeader({ title, onOpenFilter }: QuestionPageHeaderProps) {
   return (
     <header className={classes.header}>
       <h1 className={classes.title}>{title}</h1>
