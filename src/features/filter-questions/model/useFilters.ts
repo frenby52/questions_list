@@ -23,7 +23,6 @@ const defaultFilters: Filters = {
   keywords: [],
   complexity: [],
   rate: [],
-  status: 'all',
 };
 
 export const useFilters = (): UseFiltersReturn => {
@@ -40,7 +39,6 @@ export const useFilters = (): UseFiltersReturn => {
     keywords: parseArray(searchParams, 'keywords'),
     complexity: parseArray(searchParams, 'complexity'),
     rate: parseNumberList(searchParams, 'rate'),
-    status: searchParams.get('status') || defaultFilters.status,
   }), [searchParams, search]);
   
   const updateUrl = useCallback((nextFilters: Filters, nextPage: number, replace = false) =>

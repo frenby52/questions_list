@@ -1,6 +1,6 @@
 import { useState, useMemo } from 'react';
 import { SearchInput, FilterGroup, FilterChip } from '@/shared/ui';
-import { COMPLEXITY_OPTIONS, RATE_OPTIONS, STATUS_OPTIONS, COLLAPSED_SPECS_COUNT, COLLAPSED_SKILLS_COUNT } from '../config/constants';
+import { COMPLEXITY_OPTIONS, RATE_OPTIONS, COLLAPSED_SPECS_COUNT, COLLAPSED_SKILLS_COUNT } from '../config/constants';
 import { SkeletonQuestionsFiltersAfterSpecs } from './SkeletonQuestionsFiltersAfterSpecs';
 import type { Filters } from '@/entities/question';
 import type { Specialization } from '@/entities/specialization';
@@ -103,16 +103,6 @@ export function QuestionFilterPanel({ specializations, skills, filters, onFilter
                 variant="compact"
                 isActive={filters.rate?.includes(rate)}
                 onClick={() => onFiltersChange('rate', rate)}
-              />
-            ))}
-          </FilterGroup>
-          <FilterGroup title="Статус">
-            {STATUS_OPTIONS.map((option) => (
-              <FilterChip
-                key={option.value}
-                label={option.label}
-                isActive={filters.status === option.value}
-                onClick={() => onFiltersChange('status', option.value)}
               />
             ))}
           </FilterGroup>

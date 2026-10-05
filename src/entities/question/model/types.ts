@@ -21,7 +21,7 @@ export interface Question {
   keywords: string[];
   longAnswer: string;
   shortAnswer: string;
-  status: string;
+  status: 'public' | 'draft';
   rate: number;
   complexity: number;
   createdAt: string;
@@ -55,7 +55,6 @@ export interface QuestionParams {
   orderBy?: string;
   order?: 'ASC' | 'DESC';
   random?: boolean;
-  status?: string;
 }
 
 export interface Filters {
@@ -65,6 +64,4 @@ export interface Filters {
   keywords?: string[];
   complexity?: string[];
   rate?: number[];
-  status?: string;
-  page?: number;
 }
