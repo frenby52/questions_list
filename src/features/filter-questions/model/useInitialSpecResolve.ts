@@ -1,5 +1,4 @@
 import { useEffect, useMemo } from 'react';
-import type { Dispatch, SetStateAction } from 'react';
 import type { Paginated } from '@/shared/api';
 import type { Filters } from '@/entities/question';
 import type { Specialization } from '@/entities/specialization';
@@ -7,7 +6,7 @@ import type { Specialization } from '@/entities/specialization';
 export function useInitialSpecResolve(
   filters: Filters,
   specializations: Paginated<Specialization> | undefined,
-  setFilters: Dispatch<SetStateAction<Filters>>,
+  setSpecializationId: (id: number) => void,
 ): boolean {
   const shouldResolveInitialSpec = useMemo(() =>
       !filters.specializationId &&
@@ -22,8 +21,8 @@ export function useInitialSpecResolve(
   useEffect(() => {
     if (!shouldResolveInitialSpec) return;
     if (!specializations || specializations.data.length === 0) return;
-    setFilters((prev) => ({ ...prev, specializationId: specializations.data[0]?.id }));
-  }, [specializations, setFilters, shouldResolveInitialSpec]);
+    setSpecializationId(specializations.data[0]?.id);
+  }, [specializations, setSpecializationId, shouldResolveInitialSpec]);
 
   return shouldResolveInitialSpec;
 }

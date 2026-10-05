@@ -59,7 +59,7 @@ export interface QuestionParams {
 }
 
 export interface Filters {
-  search?: string;
+  search: string;
   specializationId?: number | null;
   skills?: number[];
   keywords?: string[];

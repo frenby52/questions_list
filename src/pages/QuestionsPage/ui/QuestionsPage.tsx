@@ -14,9 +14,9 @@ import { getErrorMessage } from '@/shared/lib';
 
 export function QuestionsPage() {
   const [isFilterOpen, handleOpenFilter, handleCloseFilter] = useModalState();
-  const [filters, setFilters, page, debouncedSearch, handlePageChange, handleFiltersChange] = useFilters();
+  const [filters, setSpecializationId, page, debouncedSearch, handlePageChange, handleFiltersChange] = useFilters();
   const { data: specializations, isLoading: isSpecializationsLoading, error: specializationsError } = useGetSpecializationsQuery({});
-  const shouldResolveInitialSpec = useInitialSpecResolve(filters, specializations, setFilters);
+  const shouldResolveInitialSpec = useInitialSpecResolve(filters, specializations, setSpecializationId);
   const { data: skills, isLoading: isSkillsLoading } = useGetSkillsQuery(
     { specializations: filters.specializationId ? [filters.specializationId] : [] },
     { skip: !filters.specializationId}
