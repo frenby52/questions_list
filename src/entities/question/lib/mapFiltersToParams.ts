@@ -1,7 +1,7 @@
 import { ARRAY_TYPE_PROPERTIES } from './constants';
 import type { Filters } from '../model/types';
 
-export function mapFiltersToParams(filters: Filters): URLSearchParams {
+export function mapFiltersToParams(filters: Partial<Filters> & { page?: number }): URLSearchParams {
   const params = new URLSearchParams();
 
   if (filters.page != null && filters.page > 1) {
@@ -22,10 +22,6 @@ export function mapFiltersToParams(filters: Filters): URLSearchParams {
       params.set(key, value.join(','));
     }
   });
-
-  if (filters.status && filters.status !== 'all') {
-    params.set('status', filters.status);
-  }
 
   return params;
 }

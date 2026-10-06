@@ -1,5 +1,4 @@
-import { useState, useCallback, useEffect } from 'react';
-import type { Dispatch, SetStateAction } from 'react';
+import { useState, useCallback, useEffect, useMemo } from 'react';
 import { SEARCH_DEBOUNCE_MS } from '@/shared/constants';
 import { useSearchParams } from 'react-router-dom';
 import { toggleInArray, toggleComplexity, parseArray, parseNumberList } from '../lib/filterHelpers';
@@ -10,7 +9,7 @@ export type FilterChangeHandler = (key: keyof Filters, newValue: string | number
 
 type UseFiltersReturn = [
   Filters,
-  Dispatch<SetStateAction<Filters>>,
+  (id: number) => void,
   number,
   string,
   (nextPage: number) => void,
@@ -24,53 +23,60 @@ const defaultFilters: Filters = {
   keywords: [],
   complexity: [],
   rate: [],
-  status: 'all',
 };
 
 export const useFilters = (): UseFiltersReturn => {
   const [searchParams, setSearchParams] = useSearchParams();
+  const searchFromUrl = searchParams.get('titleOrDescription') || defaultFilters.search;
+  const page = Number(searchParams.get('page')) || 1;
+  const [search, setSearch] = useState(searchFromUrl);
+  const debouncedSearch = useDebounce(search, SEARCH_DEBOUNCE_MS);
 
-  const [filters, setFilters] = useState<Filters>({
-    search: searchParams.get('titleOrDescription') || defaultFilters.search,
+  const filters = useMemo<Filters>(() => ({
+    search: search,
     specializationId: Number(searchParams.get('specializationId')) || defaultFilters.specializationId,
     skills: parseNumberList(searchParams, 'skills'),
     keywords: parseArray(searchParams, 'keywords'),
     complexity: parseArray(searchParams, 'complexity'),
     rate: parseNumberList(searchParams, 'rate'),
-    status: searchParams.get('status') || defaultFilters.status,
-  });
-
-  const [page, setPage] = useState(() => Number(searchParams.get('page')) || 1);
-  const debouncedSearch = useDebounce(filters.search ?? '', SEARCH_DEBOUNCE_MS);
+  }), [searchParams, search]);
+  
+  const updateUrl = useCallback((nextFilters: Filters, nextPage: number, replace = false) =>
+      setSearchParams(mapFiltersToParams({ ...nextFilters, page: nextPage }), { replace }),
+    [setSearchParams],
+  );
 
   useEffect(() => {
-    const params = mapFiltersToParams({ ...filters, search: debouncedSearch, page });
-    setSearchParams(params, { replace: true });
-  }, [filters, debouncedSearch, page, setSearchParams]);
+    if (debouncedSearch === searchFromUrl) return;
+    updateUrl({ ...filters, search: debouncedSearch }, 1, true);
+  }, [debouncedSearch, filters, searchFromUrl, updateUrl]);
 
   const handleFiltersChange = useCallback<FilterChangeHandler>((key, newValue) => {
     if (newValue === null) return;
 
-    setFilters((prevFilters) => {
-      if (key === 'specializationId') {
-        return { ...defaultFilters, [key]: Number(newValue) };
-      }
-      if (key === 'complexity') {
-        return { ...prevFilters, complexity: toggleComplexity(prevFilters.complexity, newValue) };
-      }
-      if (key === 'skills' || key === 'rate') {
-        return { ...prevFilters, [key]: toggleInArray(prevFilters[key], Number(newValue)) };
-      }
-      if (key === 'keywords') {
-        return { ...prevFilters, keywords: toggleInArray(prevFilters.keywords, String(newValue)) };
-      }
-      return { ...prevFilters, [key]: newValue };
-    });
+    if (key === 'search') { 
+      setSearch(String(newValue)); 
+      return; 
+    }
 
-    setPage(1);
-  }, []);
+    let newFilters: Filters;
+    if (key === 'specializationId') newFilters = { ...defaultFilters, specializationId: Number(newValue) };
+    else if (key === 'complexity') newFilters = { ...filters, complexity: toggleComplexity(filters.complexity, newValue) };
+    else if (key === 'skills' || key === 'rate') newFilters = { ...filters, [key]: toggleInArray(filters[key], Number(newValue)) };
+    else if (key === 'keywords') newFilters = { ...filters, keywords: toggleInArray(filters.keywords, String(newValue)) };
+    else newFilters = { ...filters, [key]: newValue };
 
-  const handlePageChange = useCallback((nextPage: number) => setPage(nextPage), []);
+    updateUrl({ ...newFilters, search: debouncedSearch }, 1);
+    
+  }, [debouncedSearch, filters, updateUrl]);
 
-  return [filters, setFilters, page, debouncedSearch, handlePageChange, handleFiltersChange];
+  const handlePageChange = useCallback((nextPage: number) => updateUrl({ ...filters, search: debouncedSearch }, nextPage),
+    [filters, debouncedSearch, updateUrl],
+  );
+
+  const setSpecializationId = useCallback((id: number) => updateUrl({ ...filters, specializationId: id }, page, true),
+    [filters, page, updateUrl],
+  );
+
+  return [filters, setSpecializationId, page, debouncedSearch, handlePageChange, handleFiltersChange];
 };

@@ -7,12 +7,6 @@ export const COMPLEXITY_OPTIONS = [
 
 export const RATE_OPTIONS = [1, 2, 3, 4, 5];
 
-export const STATUS_OPTIONS = [
-  { value: 'studied', label: 'Изученные' },
-  { value: 'not_studied', label: 'Не изученные' },
-  { value: 'all', label: 'Все' },
-];
-
 export const COLLAPSED_SPECS_COUNT = 5;
 
 export const COLLAPSED_SKILLS_COUNT = 8;
