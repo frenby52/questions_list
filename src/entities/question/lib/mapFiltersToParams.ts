@@ -1,7 +1,7 @@
 import { ARRAY_TYPE_PROPERTIES } from './constants';
 import type { Filters } from '../model/types';
 
-export function mapFiltersToParams(filters: Filters & { page?: number }): URLSearchParams {
+export function mapFiltersToParams(filters: Partial<Filters> & { page?: number }): URLSearchParams {
   const params = new URLSearchParams();
 
   if (filters.page != null && filters.page > 1) {

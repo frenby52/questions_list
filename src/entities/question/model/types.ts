@@ -59,9 +59,9 @@ export interface QuestionParams {
 
 export interface Filters {
   search: string;
-  specializationId?: number | null;
-  skills?: number[];
-  keywords?: string[];
-  complexity?: string[];
-  rate?: number[];
+  specializationId: number | null;
+  skills: number[];
+  keywords: string[];
+  complexity: string[];
+  rate: number[];
 }

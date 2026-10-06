@@ -5,7 +5,7 @@ import { mapFiltersToParams } from '../lib/mapFiltersToParams';
 
 const questionApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
-    getQuestions: builder.query<Paginated<Question>, Filters & { page?: number }>({
+    getQuestions: builder.query<Paginated<Question>, Partial<Filters> & { page?: number }>({
       query: (filters) => ({
         url: `/questions/public-questions`,
         params: mapFiltersToParams(filters),
